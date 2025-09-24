@@ -4,13 +4,13 @@ FROM node:18
 WORKDIR /app
 
 # 먼저 example/package.json과 package-lock.json만 복사 (캐시 최적화)
-COPY /package*.json ./
+COPY example/package*.json ./
 
 # 의존성 설치
 RUN npm install
 
 # 전체 앱 소스 복사
-COPY src/app/ .
+COPY example/ .
 
 # 앱 빌드
 RUN npm run build
