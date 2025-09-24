@@ -22,7 +22,9 @@
     "react-simplikit": "^0.0.42",
     "usehooks-ts": "^3.1.1",
     "zod": "^4.1.11",
-    "zustand": "^5.0.8"
+    "zustand": "^5.0.8",
+    "@formatjs/intl-localematcher": "^0.5.0",
+    "negotiator": "^0.6.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
