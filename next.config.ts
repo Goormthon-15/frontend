@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   /** svgr 관련 설정 */
   webpack(config) {
     // Grab the existing rule that handles SVG imports
-    const fileLoaderRule = config.module.rules.find((rule) =>
+    const fileLoaderRule = config.module.rules.find((rule: any) =>
       rule.test?.test?.(".svg")
     );
 
