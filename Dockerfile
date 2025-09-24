@@ -1,7 +1,7 @@
 FROM node:18
 
 # 앱 디렉토리 설정
-WORKDIR /src/app
+WORKDIR /app
 
 # 먼저 example/package.json과 package-lock.json만 복사 (캐시 최적화)
 COPY /package*.json ./
