@@ -1,0 +1,1 @@
+export const TRANSLATOR_SELECT_BOX_DEFAULT_VALUE = "en";
