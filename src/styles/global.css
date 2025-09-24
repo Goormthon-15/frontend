@@ -1,0 +1,10 @@
+@import url("./reset.css");
+
+* {
+  box-sizing: border-box;
+  font-family: "Pretendard", sans-serif;
+}
+
+html {
+  font-family: "Pretendard", sans-serif;
+}
