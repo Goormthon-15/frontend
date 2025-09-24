@@ -19,14 +19,16 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.63.0",
+    "react-simplikit": "^0.0.42",
     "usehooks-ts": "^3.1.1",
     "zod": "^4.1.11",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@tanstack/react-query-devtools": "^5.90.2",
     "@biomejs/biome": "2.2.0",
     "@svgr/webpack": "^8.1.0",
+    "@tanstack/react-query-devtools": "^5.90.2",
+    "@types/navermaps": "^3.9.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
