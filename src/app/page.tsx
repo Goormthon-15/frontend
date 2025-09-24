@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>ㄷㄷ 홈임 </div>;
+  return <V>ㄷㄷ 홈임 </V>;
 }
