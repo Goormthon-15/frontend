@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
 
+  // Docker 컨테이너에서 standalone 출력 활성화
+  output: "standalone",
+
   /** vapor ui 관련 설정 */
   // Vapor UI 번들 최적화 설정
   experimental: {
