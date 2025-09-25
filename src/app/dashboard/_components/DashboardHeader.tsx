@@ -96,7 +96,7 @@ export function DashboardHeader() {
       <HStack
         justifyContent="space-between"
         alignItems="center"
-        className="px-6! py-2!"
+        className="px-6! py-2! border-b-gray-100! border-b-1!"
       >
         <Button
           variant="ghost"
@@ -109,7 +109,12 @@ export function DashboardHeader() {
         </Button>
 
         {pathname === "/dashboard" ? null : (
-          <IconButton size="lg" variant="ghost" aria-label="home">
+          <IconButton
+            size="lg"
+            variant="ghost"
+            aria-label="home"
+            onClick={() => router.push("/dashboard")}
+          >
             <HomeOutlineIcon size={"24"} color="black" />
           </IconButton>
         )}

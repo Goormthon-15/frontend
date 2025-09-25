@@ -14,7 +14,11 @@ export default function DashboardPage() {
           />
         }
       >
-        병원 찾기
+        병원 맵
+      </Button>
+
+      <Button render={<Link href={`/dashboard/hospitals?view=list`} />}>
+        병원 리스트
       </Button>
     </VStack>
   );
