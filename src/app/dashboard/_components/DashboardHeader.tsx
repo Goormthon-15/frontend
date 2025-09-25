@@ -16,7 +16,8 @@ import {
   ChevronLeftOutlineIcon,
 } from "@vapor-ui/icons";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { jejuHospitals, seogwipoHospitals } from "../hospitals/_mock/kor_mock";
 
 const JEJU_LOCATIONS = {
   DEFAULT: "내 주변",
@@ -64,6 +65,25 @@ export function DashboardHeader() {
   const [location, setLocation] = useState(JEJU_LOCATIONS.DEFAULT);
   const [isLocationOverlayOpen, setIsLocationOverlayOpen] = useState(false);
 
+  // 병원 상세 페이지인지 확인하는 함수
+  const isHospitalDetailPage = (path: string) => {
+    const hospitalDetailPattern = /^\/dashboard\/hospitals\/\d+$/;
+    return hospitalDetailPattern.test(path);
+  };
+
+  // 현재 페이지의 병원 정보 가져오기
+  const currentHospital = useMemo(() => {
+    if (!isHospitalDetailPage(pathname)) return null;
+
+    // URL에서 병원 ID 추출
+    const hospitalId = pathname.split("/")[3];
+    const id = parseInt(hospitalId);
+
+    // 모든 병원 데이터에서 해당 ID의 병원 찾기
+    const allHospitals = [...jejuHospitals, ...seogwipoHospitals];
+    return allHospitals.find((hospital) => hospital.id === id) || null;
+  }, [pathname]);
+
   // URL에서 location 파라미터 읽기 및 유효성 검사
   useEffect(() => {
     const urlLocation = searchParams.get("location");
@@ -93,7 +113,6 @@ export function DashboardHeader() {
     // overlay 닫기
     setIsLocationOverlayOpen(false);
   };
-
   return (
     <>
       <HStack
@@ -113,15 +132,31 @@ export function DashboardHeader() {
             <ChevronLeftOutlineIcon size={"24"} color="black" />
           </IconButton>
         ) : null}
-        <Button
-          variant="ghost"
-          onClick={() => setIsLocationOverlayOpen(true)}
-          className={"absolute left-1/2 -translate-x-1/2 text-black"}
-        >
-          <FoldOutlineIcon size={"24"} />
-          <Text typography="heading6">{location}</Text>
-          <ChevronDownOutlineIcon size={"16"} />
-        </Button>
+
+        {/* 병원 상세 페이지가 아닐 때만 지역 선택 버튼 표시 */}
+        {/* 일반 페이지에서는 지역 선택 버튼 표시 */}
+        {!isHospitalDetailPage(pathname) && (
+          <Button
+            variant="ghost"
+            onClick={() => setIsLocationOverlayOpen(true)}
+            className={"absolute left-1/2 -translate-x-1/2 text-black"}
+          >
+            <FoldOutlineIcon size={"24"} />
+            <Text typography="heading6">{location}</Text>
+            <ChevronDownOutlineIcon size={"16"} />
+          </Button>
+        )}
+
+        {/* 병원 상세 페이지에서는 병원 이름 표시 */}
+        {isHospitalDetailPage(pathname) && (
+          <div className="absolute left-1/2 -translate-x-1/2">
+            <Text typography="heading6" className="text-black">
+              {currentHospital
+                ? currentHospital.name
+                : "병원 정보를 찾을 수 없습니다"}
+            </Text>
+          </div>
+        )}
 
         {pathname === "/dashboard" ? (
           <HStack alignItems="center" gap={"8px"}>

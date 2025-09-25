@@ -54,6 +54,7 @@ interface NaverMapProps {
   height?: string;
   showMarker?: boolean; // 마커 표시 여부 옵션 추가
   hospitalData?: IHospital[];
+  onMarkerClick?: (hospital: IHospital) => void;
 }
 
 export default function NaverMap({
@@ -63,6 +64,7 @@ export default function NaverMap({
   height = "100vh",
   showMarker = true,
   hospitalData = [],
+  onMarkerClick,
 }: NaverMapProps) {
   // 유효한 좌표인지 확인
   const hasValidCoords =
@@ -134,6 +136,7 @@ export default function NaverMap({
 
       naver.maps.Event.addListener(marker, "click", () => {
         console.log(hospital);
+        onMarkerClick?.(hospital);
       });
 
       markers.push(marker);
@@ -143,7 +146,7 @@ export default function NaverMap({
     return () => {
       markers.forEach((marker) => marker.setMap(null));
     };
-  }, [mapInstance, isLoaded, hospitalData]);
+  }, [mapInstance, isLoaded, hospitalData, onMarkerClick]);
 
   if (error) {
     return (
