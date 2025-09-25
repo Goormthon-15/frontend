@@ -11,7 +11,9 @@ export default function DashboardLayout({
       <DashboardHeader />
 
       {/*  Content  */}
-      <div className={"grow w-full h-full"}>{children}</div>
+      <div className={"grow w-full h-full vertical-custom-scrollbar relative"}>
+        {children}
+      </div>
     </VStack>
   );
 }
