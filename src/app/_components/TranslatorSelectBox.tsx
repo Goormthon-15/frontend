@@ -6,12 +6,18 @@ import { Locale } from "@/libs/i18n";
 import { useTranslationStore } from "@/store/i18n/i18nStore";
 import { setCookie } from "@/utils/cookies";
 import { getServerSideCookie } from "@/utils/server/cookies";
-import { IconButton, Select } from "@vapor-ui/core";
+import { IconButton, Select, Switch } from "@vapor-ui/core";
 import { ImageToContainerIcon, TranslateOutlineIcon } from "@vapor-ui/icons";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function TranslatorSelectBox() {
+interface TranslatorSelectBoxProps {
+  theme: "icon" | "select";
+}
+
+export default function TranslatorSelectBox({
+  theme = "icon",
+}: TranslatorSelectBoxProps) {
   const { setLocale, locale } = useTranslationStore();
   const { serverLocale } = useLocaleContext();
 
@@ -59,26 +65,42 @@ export default function TranslatorSelectBox() {
     <Select.Root placeholder="" value={currentLocale}>
       <Select.Trigger
         className={
-          "outline-none border-none hover:bg-transparent p-0 rounded-full"
+          theme === "select"
+            ? "h-[40px] w-[100%]"
+            : "outline-none border-none hover:bg-transparent p-0 rounded-full"
         }
       >
-        {/* <Select.Value>
-          {findLocaleSelectItem(currentLocale as Locale)?.label ||
-            TRANSLATOR_SELECT_LIST[0].label}
-        </Select.Value>
-        <Select.TriggerIcon /> */}
-        <IconButton
-          variant="ghost"
-          size="lg"
-          aria-label="language"
-          onClick={() => changeTranslate(currentLocale)}
-          className="text-white rounded-full bg-black outline-none border-none"
-        >
-          <TranslateOutlineIcon size={"24px"} />
-        </IconButton>
+        {(() => {
+          switch (theme) {
+            case "select":
+              return (
+                <>
+                  <Select.Value>
+                    {findLocaleSelectItem(currentLocale as Locale)?.label ||
+                      TRANSLATOR_SELECT_LIST[0].label}
+                  </Select.Value>
+                  <Select.TriggerIcon />
+                </>
+              );
+            case "icon":
+              return (
+                <IconButton
+                  variant="ghost"
+                  size="lg"
+                  aria-label="language"
+                  onClick={() => changeTranslate(currentLocale)}
+                  className="text-white rounded-full bg-black outline-none border-none"
+                >
+                  <TranslateOutlineIcon size={"24px"} />
+                </IconButton>
+              );
+          }
+        })()}
       </Select.Trigger>
 
-      <Select.Content className={"-translate-x-40 translate-y-2"}>
+      <Select.Content
+        className={theme === "icon" ? "-translate-x-40 translate-y-2" : ""}
+      >
         <Select.Group>
           {TRANSLATOR_SELECT_LIST.map((locale) => (
             <Select.Item
