@@ -1,3 +1,5 @@
+import { HospitalContent } from "./_components/HospitalContent";
+
 export default function HospitalsPage() {
-  return <div>HospitalsPage</div>;
+  return <HospitalContent />;
 }

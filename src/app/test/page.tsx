@@ -1,5 +1,5 @@
 import Translator from "@/app/test/_components/Translator";
-import NaverMap from "./_components/NaverMap";
+import NaverMap from "../dashboard/hospitals/_components/map/NaverMap";
 
 export default function Test() {
   return (

@@ -14,7 +14,7 @@ import {
   HomeOutlineIcon,
   ChevronLeftOutlineIcon,
 } from "@vapor-ui/icons";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const JEJU_LOCATIONS = {
@@ -56,6 +56,7 @@ const VALID_LOCATIONS = getAllLocationValues();
 export function DashboardHeader() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
 
   const [location, setLocation] = useState(JEJU_LOCATIONS.DEFAULT);
   const [isLocationOverlayOpen, setIsLocationOverlayOpen] = useState(false);
@@ -107,9 +108,11 @@ export function DashboardHeader() {
           <ChevronDownOutlineIcon size={"16"} />
         </Button>
 
-        <IconButton size="lg" variant="ghost" aria-label="home">
-          <HomeOutlineIcon size={"24"} color="black" />
-        </IconButton>
+        {pathname === "/dashboard" ? null : (
+          <IconButton size="lg" variant="ghost" aria-label="home">
+            <HomeOutlineIcon size={"24"} color="black" />
+          </IconButton>
+        )}
       </HStack>
 
       {/* 지역 선택 오버레이 */}

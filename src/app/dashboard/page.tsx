@@ -4,7 +4,9 @@ import Link from "next/link";
 export default function DashboardPage() {
   return (
     <VStack>
-      <Button render={<Link href="/dashboard/hospitals" />}>병원 찾기</Button>
+      <Button render={<Link href="/dashboard/hospitals?view=map" />}>
+        병원 찾기
+      </Button>
     </VStack>
   );
 }
