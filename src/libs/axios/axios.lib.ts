@@ -11,7 +11,8 @@ const defaultConfig: AxiosRequestConfig = {
 
 export const apiRequester: AxiosInstance = axios.create({
   ...defaultConfig,
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  // Next.js rewrites를 통한 프록시 사용 (CORS 문제 해결)
+  baseURL: "/api",
 });
 
 const setDefaultRequestHeaders = (
