@@ -14,7 +14,8 @@ import {
   CarOutlineIcon,
   ChevronRightOutlineIcon,
 } from "@vapor-ui/icons";
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import { getDistance, convertDistance } from "geolib";
 
 export function HospitalList() {
   return (
@@ -26,13 +27,29 @@ export function HospitalList() {
   );
 }
 
-interface HospitalType {
+// interface HospitalType {
+//   id: number;
+//   name: string;
+//   address: string;
+//   phoneNumber: string;
+//   department: string;
+//   departmentKorean: string;
+//   isPopular: boolean;
+//   isCurrentlyOpen: boolean | null;
+//   latitude: number;
+//   longitude: number;
+//   isFavorite: boolean;
+// }
+
+interface IHospital {
   id: number;
   name: string;
-  address: string;
-  phoneNumber: string;
-  department: string;
-  departmentKorean: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  phone: string;
+  type: string;
+  officeHours: string;
   isPopular: boolean;
   isCurrentlyOpen: boolean | null;
   latitude: number;
@@ -40,13 +57,15 @@ interface HospitalType {
   isFavorite: boolean;
 }
 
-const mockData: HospitalType = {
+const mockData: IHospital = {
   id: 2,
   name: "삼성서울병원",
-  address: "서울특별시 강남구 일원로 81",
-  phoneNumber: "02-3410-2114",
-  department: "SURGERY",
-  departmentKorean: "외과",
+  address1: "서울특별시",
+  address2: "강남구",
+  address3: "일원로 81",
+  phone: "02-3410-2114",
+  type: "SURGERY",
+  officeHours: "09:00 - 18:00",
   isPopular: true,
   isCurrentlyOpen: null,
   latitude: 37.4881,
@@ -55,13 +74,21 @@ const mockData: HospitalType = {
 };
 
 interface HospitalItemProps {
-  item: HospitalType;
+  item: IHospital;
 }
 
 const JEJU_CENTER = { lat: 33.49962, lng: 126.53119 };
 
 function HospitalItem({ item }: HospitalItemProps) {
   const [isFavorite, setIsFavorite] = useState(item.isFavorite ?? false);
+
+  // 사용 예시
+  const distance = getDistance(
+    { latitude: JEJU_CENTER.lat, longitude: JEJU_CENTER.lng }, // 제주 시청
+    { latitude: 33.5, longitude: 126.532 } // 병원 위치
+  );
+
+  const distanceKm = convertDistance(distance, "km") ?? 0;
 
   return (
     <Card.Root>
@@ -70,7 +97,7 @@ function HospitalItem({ item }: HospitalItemProps) {
           <Flex gap={"16px"} alignItems={"center"}>
             <Text typography="heading5">{item.name}</Text>
             <Text className="text-gray-100">|</Text>
-            <Text typography="heading6">{item.department}</Text>
+            <Text typography="heading6">{item.type}</Text>
           </Flex>
 
           <IconButton
@@ -95,6 +122,7 @@ function HospitalItem({ item }: HospitalItemProps) {
                 size="lg"
                 shape="square"
                 color={item.isCurrentlyOpen ? "primary" : "hint"}
+                className="w-[120px]"
               >
                 <Text typography="subtitle1">
                   {item.isCurrentlyOpen ? "진료 중" : "진료 종료"}
@@ -105,12 +133,18 @@ function HospitalItem({ item }: HospitalItemProps) {
             </Flex>
           </HStack>
           <HStack alignItems={"center"} gap={"15px"}>
-            <Badge size="lg" shape="square" className="border-none bg-inherit">
+            <Badge
+              size="lg"
+              shape="square"
+              className="border-none bg-inherit w-[120px]"
+            >
               <CarOutlineIcon size={"16px"} />
-              <Text typography="subtitle1">{"0km"}</Text>
+              <Text typography="subtitle1">{distanceKm.toFixed(1)}km</Text>
             </Badge>
             <Text className="text-gray-100">|</Text>
-            <Text typography="heading6">{item.address}</Text>
+            <Text typography="heading6">
+              {item.address1} {item.address2} {item.address3}
+            </Text>
           </HStack>
         </VStack>
 
@@ -125,20 +159,4 @@ function HospitalItem({ item }: HospitalItemProps) {
       </Card.Body>
     </Card.Root>
   );
-}
-
-interface IHospital {
-  id: number;
-  name: string;
-  address1: string;
-  address2: string;
-  address3: string;
-  phone: string;
-  type: string;
-  officeHours: string;
-  departmentKorean: string;
-  isPopular: boolean;
-  isCurrentlyOpen: boolean | null;
-  latitude: number;
-  longitude: number;
 }

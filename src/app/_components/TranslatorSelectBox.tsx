@@ -6,7 +6,8 @@ import { Locale } from "@/libs/i18n";
 import { useTranslationStore } from "@/store/i18n/i18nStore";
 import { setCookie } from "@/utils/cookies";
 import { getServerSideCookie } from "@/utils/server/cookies";
-import { Select } from "@vapor-ui/core";
+import { IconButton, Select } from "@vapor-ui/core";
+import { ImageToContainerIcon, TranslateOutlineIcon } from "@vapor-ui/icons";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -17,8 +18,8 @@ export default function TranslatorSelectBox() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [currentLocale, setCurrentLocale] = useState<string | Locale>(
-    findLocaleSelectItem(serverLocale)?.label || TRANSLATOR_SELECT_LIST[0].label
+  const [currentLocale, setCurrentLocale] = useState<string>(
+    serverLocale || TRANSLATOR_SELECT_LIST[0].value
   );
 
   // 언어 선택 list의 item을 찾는 함수
@@ -38,6 +39,7 @@ export default function TranslatorSelectBox() {
     // 변경되었다면 쿠키세팅 및 라우팅
     setCookie("lng", selectLocale);
     setLocale(selectLocale as Locale);
+    setCurrentLocale(selectLocale); // 즉시 상태 업데이트
     router.replace(pathname, { scroll: false });
   }
 
@@ -49,20 +51,34 @@ export default function TranslatorSelectBox() {
 
   // locale state가 변경될 때 현재 선택된 locale을 보여주기 위함
   useEffect(() => {
-    (async () => {
-      await handleCurrentLocale(locale);
-    })();
+    setCurrentLocale(locale);
     console.log("locale", locale);
   }, [locale]);
 
   return (
     <Select.Root placeholder="" value={currentLocale}>
-      <Select.Trigger>
-        <Select.Value />
-        <Select.TriggerIcon />
+      <Select.Trigger
+        className={
+          "outline-none border-none hover:bg-transparent p-0 rounded-full"
+        }
+      >
+        {/* <Select.Value>
+          {findLocaleSelectItem(currentLocale as Locale)?.label ||
+            TRANSLATOR_SELECT_LIST[0].label}
+        </Select.Value>
+        <Select.TriggerIcon /> */}
+        <IconButton
+          variant="ghost"
+          size="lg"
+          aria-label="language"
+          onClick={() => changeTranslate(currentLocale)}
+          className="text-white rounded-full bg-black outline-none border-none"
+        >
+          <TranslateOutlineIcon size={"24px"} />
+        </IconButton>
       </Select.Trigger>
 
-      <Select.Content>
+      <Select.Content className={""}>
         <Select.Group>
           {TRANSLATOR_SELECT_LIST.map((locale) => (
             <Select.Item

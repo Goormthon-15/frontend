@@ -1,5 +1,6 @@
 "use client";
 
+import TranslatorSelectBox from "@/app/_components/TranslatorSelectBox";
 import { MOBILE_FRAME_HEIGHT } from "@/app/_constants/index.constants";
 import {
   Button,
@@ -109,7 +110,9 @@ export function DashboardHeader() {
           <ChevronDownOutlineIcon size={"16"} />
         </Button>
 
-        {pathname === "/dashboard" ? null : (
+        {pathname === "/dashboard" ? (
+          <TranslatorSelectBox />
+        ) : (
           <IconButton
             size="lg"
             variant="ghost"
