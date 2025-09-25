@@ -5,6 +5,10 @@ import { cookies } from "next/headers";
 import { Locale } from "@/libs/i18n";
 import loadTranslation from "@/libs/i18n/utils/loadTranslation";
 import "@/styles/global.css";
+import {
+  getServerSideCookie,
+  setServerSideCookie,
+} from "@/utils/server/cookies";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +20,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const serverLocale = ((await cookies()).get("lng")?.value || "en") as Locale;
+  const serverLocale = ((await getServerSideCookie("lng")) || "en") as Locale;
+
   const localeJson = await loadTranslation(serverLocale);
 
   return (
