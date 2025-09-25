@@ -31,3 +31,8 @@ html {
     "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     sans-serif;
 }
+
+/* 다이어로그 오버레이 색상 사라지게 했읍니다 */
+.dialog-dt887t0 {
+  background-color: transparent;
+}

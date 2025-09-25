@@ -1,4 +1,4 @@
-import { VStack } from "@vapor-ui/core";
+import { HStack, VStack } from "@vapor-ui/core";
 import { DashboardHeader } from "./_components/DashboardHeader";
 
 export default function DashboardLayout({
@@ -7,9 +7,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <VStack>
+    <VStack width={"100%"} height={"100%"}>
       <DashboardHeader />
-      {children}
+
+      {/*  Content  */}
+      <div className={"grow w-full h-full"}>{children}</div>
     </VStack>
   );
 }
