@@ -12,7 +12,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface TranslatorSelectBoxProps {
-  theme: "icon" | "select";
+  theme?: "icon" | "select";
 }
 
 export default function TranslatorSelectBox({
