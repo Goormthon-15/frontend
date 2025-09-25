@@ -47,11 +47,11 @@ export default function HospitalDetailStackPage({
             {/* 여기에 지역 선택 섹션들이 들어갑니다 */}
             {/* 현재 위치 기반 섹션 */}
             ㄷㄷ ㅋㅋㅋ
-            <Image
+            <img
               src="/images/hospital.png"
               alt="병원 이미지"
-              width={100}
-              height={100}
+              height={306}
+              className="w-full h-[306px]"
             />
             {/* 제주시 섹션 */}
             <div>ㅋㅋ</div>
