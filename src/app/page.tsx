@@ -1,8 +1,7 @@
 "use client";
 
 import Splash from "@/app/_components/Splash";
-import { Box, Button, Flex, Text, VStack } from "@vapor-ui/core";
-import Link from "next/link";
+import { Box, Flex, Text, VStack } from "@vapor-ui/core";
 import { useRouter } from "next/navigation";
 
 export default function Home() {

@@ -78,7 +78,7 @@ export default function TranslatorSelectBox() {
         </IconButton>
       </Select.Trigger>
 
-      <Select.Content className={""}>
+      <Select.Content className={"-translate-x-40 translate-y-2"}>
         <Select.Group>
           {TRANSLATOR_SELECT_LIST.map((locale) => (
             <Select.Item
