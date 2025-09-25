@@ -17,6 +17,7 @@ import {
 import { useState } from "react";
 import { getDistance, convertDistance } from "geolib";
 import { IHospital } from "../../_mock/kor_mock";
+import { useRouter } from "next/navigation";
 
 export function HospitalList({ data }: { data: IHospital[] }) {
   return (
@@ -48,6 +49,8 @@ interface HospitalItemProps {
 const JEJU_CENTER = { lat: 33.49962, lng: 126.53119 };
 
 function HospitalItem({ item }: HospitalItemProps) {
+  const router = useRouter();
+
   const [isFavorite, setIsFavorite] = useState(item.isFavorite ?? false);
 
   // 사용 예시
@@ -58,8 +61,18 @@ function HospitalItem({ item }: HospitalItemProps) {
 
   const distanceKm = convertDistance(distance, "km") ?? 0;
 
+  const handleFavoriteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setIsFavorite(!isFavorite);
+  };
+
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    router.push(`/dashboard/hospitals/${item.id}`);
+  };
+
   return (
-    <Card.Root>
+    <Card.Root onClick={handleCardClick}>
       <Card.Header className="px-4 py-2 border-none">
         <HStack alignItems={"center"} justifyContent={"space-between"}>
           <Flex gap={"16px"} alignItems={"center"}>
@@ -75,7 +88,7 @@ function HospitalItem({ item }: HospitalItemProps) {
             aria-label="favorite"
             variant="ghost"
             size="lg"
-            onClick={() => setIsFavorite(!isFavorite)}
+            onClick={handleFavoriteClick}
           >
             {isFavorite ? (
               <BookmarkIcon size={"24px"} color="inherit" />
