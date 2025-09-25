@@ -1,3 +1,4 @@
+import { useToastStore } from "@/store/toastStore";
 import React from "react";
 
 /**@desc 타임아웃 클리어 함수
@@ -29,3 +30,5 @@ export function timeoutClearFunction(
 export function objectDeepCopy(e: any) {
   return JSON.parse(JSON.stringify(e));
 }
+
+export const toast = useToastStore.getState().addToast;
