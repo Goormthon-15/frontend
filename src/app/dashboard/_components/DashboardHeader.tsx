@@ -1,5 +1,6 @@
 "use client";
 
+import TranslatorSelectBox from "@/app/_components/TranslatorSelectBox";
 import {
   Button,
   HStack,
@@ -15,7 +16,7 @@ import {
   ChevronLeftOutlineIcon,
 } from "@vapor-ui/icons";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const JEJU_LOCATIONS = {
   DEFAULT: "내 주변",
@@ -96,8 +97,10 @@ export function DashboardHeader() {
       <HStack
         justifyContent="space-between"
         alignItems="center"
-        backgroundColor={"$$gray-050"}
-        className="px-6! py-2!"
+        backgroundColor={"$gray-050"}
+        paddingX={"16px"}
+        paddingY={"12px"}
+        className="border-b border-[#E1E1E1]"
       >
         <Button
           variant="ghost"
@@ -109,8 +112,32 @@ export function DashboardHeader() {
           <ChevronDownOutlineIcon size={"16"} />
         </Button>
 
-        {pathname === "/dashboard" ? null : (
-          <IconButton size="lg" variant="ghost" aria-label="home">
+        {pathname === "/dashboard" ? (
+          <HStack alignItems="center" gap={"8px"}>
+            <TranslatorSelectBox />
+
+            <IconButton
+              size="lg"
+              variant="fill"
+              aria-label="home"
+              onClick={() => router.push("/dashboard")}
+              className="text-white rounded-full flex items-center justify-center"
+            >
+              <Text
+                typography="heading6"
+                className="text-white flex items-center justify-center"
+              >
+                MY
+              </Text>
+            </IconButton>
+          </HStack>
+        ) : (
+          <IconButton
+            size="lg"
+            variant="ghost"
+            aria-label="home"
+            onClick={() => router.push("/dashboard")}
+          >
             <HomeOutlineIcon size={"24"} color="black" />
           </IconButton>
         )}
@@ -150,7 +177,7 @@ function LocationOverlay({
       <Dialog.Content
         className={`w-[430px]! h-[932px]! m-0 rounded-none bg-white shadow-none flex flex-col`}
       >
-        <Dialog.Header className="flex items-center justify-between px-6! py-2! relative">
+        <Dialog.Header className="flex items-center justify-between min-h-[64px] px-4 py-3 relative bg-gray-50 border-b border-[#E1E1E1]">
           <IconButton
             variant="ghost"
             size="lg"

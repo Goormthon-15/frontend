@@ -12,12 +12,14 @@ interface NaverMapOptions {
 
 interface UseNaverMapReturn {
   mapRef: React.RefObject<HTMLDivElement | null>;
+  mapInstance: naver.maps.Map | null; // 맵 인스턴스 추가
   isLoaded: boolean;
   error: string | null;
 }
 
 export function useNaverMap(options: NaverMapOptions): UseNaverMapReturn {
   const mapRef = useRef<HTMLDivElement>(null);
+  const [mapInstance, setMapInstance] = useState<naver.maps.Map | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -51,6 +53,8 @@ export function useNaverMap(options: NaverMapOptions): UseNaverMapReturn {
         // 맵 생성
         const map = new naver.maps.Map(mapRef.current, mapOptions);
 
+        // 맵 인스턴스 저장
+        setMapInstance(map);
         setIsLoaded(true);
         setError(null);
 
@@ -73,11 +77,11 @@ export function useNaverMap(options: NaverMapOptions): UseNaverMapReturn {
         }
       }, 100);
 
-      // 10초 후 타임아웃
+      // 120초 후 타임아웃
       const timeout = setTimeout(() => {
         clearInterval(interval);
         setError("네이버 맵 스크립트 로드 시간 초과");
-      }, 10000);
+      }, 1000 * 120);
 
       return () => {
         clearInterval(interval);
@@ -86,5 +90,23 @@ export function useNaverMap(options: NaverMapOptions): UseNaverMapReturn {
     }
   }, [options.center.lat, options.center.lng, options.zoom]);
 
-  return { mapRef, isLoaded, error };
+  // 맵이 로드된 후 중심점 업데이트
+  useEffect(() => {
+    if (mapInstance && isLoaded) {
+      const newCenter = new naver.maps.LatLng(
+        options.center.lat,
+        options.center.lng
+      );
+      mapInstance.setCenter(newCenter);
+      mapInstance.setZoom(options.zoom);
+    }
+  }, [
+    mapInstance,
+    isLoaded,
+    options.center.lat,
+    options.center.lng,
+    options.zoom,
+  ]);
+
+  return { mapRef, mapInstance, isLoaded, error };
 }

@@ -23,11 +23,21 @@
     sans-serif;
 }
 
-html {
+html,
+body {
   font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
     Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
     "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     sans-serif;
+  background-color: #f9fafb;
+}
+
+:root {
+  --vapor-color-background-primary-100: #99dbda;
+  --vapor-color-background-primary-200: #106c6c;
+  --vapor-color-foreground-foreground-100: #005d5d;
+  --vapor-color-foreground-foreground-200: #00494a;
+  --vapor-color-border-primay: #106c6c;
 }
 
 /* 다이어로그 오버레이 색상 사라지게 했읍니다 */
