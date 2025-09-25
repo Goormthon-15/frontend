@@ -37,6 +37,8 @@ html {
 .dialog-dt887tc {
   max-height: none !important;
   overflow-y: auto !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
   ::-webkit-scrollbar {
     display: none !important;

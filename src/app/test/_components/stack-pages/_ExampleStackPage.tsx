@@ -17,7 +17,7 @@ export default function ExampleStackPage({
       closeOnClickOverlay={false}
     >
       <Dialog.Content
-        className={`w-[430px] h-[932px] m-0 rounded-none bg-white shadow-none`}
+        className={`w-[430px] h-[932px] m-0 rounded-none bg-white shadow-none flex flex-col`}
       >
         <Dialog.Header className="flex items-center justify-between px-6! py-2! relative">
           <IconButton
@@ -38,8 +38,8 @@ export default function ExampleStackPage({
         </Dialog.Header>
 
         {/* 바디 - 지역 선택 내용 */}
-        <Dialog.Body className="flex-1 p-4 overflow-y-auto bg-gray-50">
-          <VStack alignItems="stretch" className="h-full">
+        <Dialog.Body className="grow p-4 overflow-y-auto bg-[#f7f7f7]">
+          <VStack alignItems="stretch" className="h-[5000px]">
             내용입니다
           </VStack>
         </Dialog.Body>
