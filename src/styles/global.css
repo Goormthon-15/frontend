@@ -1,5 +1,13 @@
 @import url("./reset.css");
 
+/** tailwindcss 설정 */
+@layer tw-theme, theme, reset, components, utilities, tw-utilities;
+
+@import "tailwindcss/theme.css" layer(tw-theme);
+@import "tailwindcss/utilities.css" layer(tw-utilities);
+@import "@vapor-ui/core/styles.css";
+@import "@vapor-ui/core/tailwind.css";
+
 * {
   box-sizing: border-box;
   font-family: "Pretendard", sans-serif;

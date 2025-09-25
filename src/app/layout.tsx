@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import "@/styles/global.css";
 import React from "react";
 import { LocaleProvider } from "@/app/_components/provider/LocaleProvider";
 import { cookies } from "next/headers";
 import { Locale } from "@/libs/i18n";
 import loadTranslation from "@/libs/i18n/utils/loadTranslation";
+import "@/styles/global.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
