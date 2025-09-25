@@ -2,6 +2,50 @@
 
 import { useNaverMap } from "./_hooks/use-naver-maps";
 import { useMapMarker } from "./_hooks/use-map-marker";
+import { IHospital } from "../../_mock/kor_mock";
+import { useEffect } from "react";
+
+// SVG 마커 문자열 정의
+const MARKER_SVGS = {
+  marker1: `<svg width="32" height="48" viewBox="0 0 89 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_31210_5098)">
+      <path d="M44.1821 0C74.7895 0 90.2895 28.5 88.2895 46.867C85.9506 68.3468 77.2895 73 44.2895 133.5C11.7896 73 3.28956 70.5 0.289517 46.867C-2.72666 23.107 18.2306 0 44.1821 0Z" fill="#106C6C"/>
+      <path d="M43.7896 74C60.6342 74 74.2895 60.3447 74.2895 43.5C74.2895 26.6553 60.6342 13 43.7896 13C26.9449 13 13.2896 26.6553 13.2896 43.5C13.2896 60.3447 26.9449 74 43.7896 74Z" fill="#FDFDFD"/>
+      <path d="M43.9999 61L26.6794 31H61.3204L43.9999 61Z" fill="#106C6C"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_31210_5098">
+        <rect width="89" height="134" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>`,
+
+  marker2: `<svg width="32" height="48" viewBox="0 0 89 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_31210_5106)">
+      <path d="M44.1821 0C74.7895 0 90.2895 28.5 88.2895 46.867C85.9506 68.3468 77.2895 73 44.2895 133.5C11.7896 73 3.28956 70.5 0.289517 46.867C-2.72666 23.107 18.2306 0 44.1821 0Z" fill="#B12932"/>
+      <path d="M43.7896 74C60.6342 74 74.2895 60.3447 74.2895 43.5C74.2895 26.6553 60.6342 13 43.7896 13C26.9449 13 13.2896 26.6553 13.2896 43.5C13.2896 60.3447 26.9449 74 43.7896 74Z" fill="#FDFDFD"/>
+      <path d="M43.7896 19L49.1011 35.0426H66.2895L52.3838 44.9574L57.6953 61L43.7896 51.0851L29.8838 61L35.1953 44.9574L21.2896 35.0426H38.478L43.7896 19Z" fill="#B12932"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_31210_5106">
+        <rect width="89" height="134" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>`,
+
+  marker3: `<svg width="32" height="48" viewBox="0 0 89 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_31210_6612)">
+      <path d="M44.1821 0C74.7895 0 90.2895 28.5 88.2895 46.867C85.9506 68.3468 77.2895 73 44.2895 133.5C11.7896 73 3.28956 70.5 0.289517 46.867C-2.72666 23.107 18.2306 0 44.1821 0Z" fill="#FBBD06"/>
+      <path d="M43.7896 74C60.6342 74 74.2895 60.3447 74.2895 43.5C74.2895 26.6553 60.6342 13 43.7896 13C26.9449 13 13.2896 26.6553 13.2896 43.5C13.2896 60.3447 26.9449 74 43.7896 74Z" fill="#FDFDFD"/>
+      <path d="M43.9999 61L26.6794 31H61.3204L43.9999 61Z" fill="#FBBD06"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_31210_6612">
+        <rect width="89" height="134" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>`,
+};
 
 interface NaverMapProps {
   zoom?: number;
@@ -9,6 +53,7 @@ interface NaverMapProps {
   width?: string;
   height?: string;
   showMarker?: boolean; // 마커 표시 여부 옵션 추가
+  hospitalData?: IHospital[];
 }
 
 export default function NaverMap({
@@ -17,6 +62,7 @@ export default function NaverMap({
   width = "100%",
   height = "100vh",
   showMarker = true,
+  hospitalData = [],
 }: NaverMapProps) {
   // 유효한 좌표인지 확인
   const hasValidCoords =
@@ -56,6 +102,48 @@ export default function NaverMap({
         }
       : undefined,
   });
+
+  // 병원 마커들 생성
+  useEffect(() => {
+    if (!mapInstance || !isLoaded || !hospitalData.length) return;
+
+    const markers: naver.maps.Marker[] = [];
+
+    hospitalData.forEach((hospital) => {
+      let markerSvg;
+
+      // 마커 타입 결정 (우선순위: isFavorite > isPopular > default)
+      if (hospital.isFavorite) {
+        markerSvg = MARKER_SVGS.marker3;
+      } else if (hospital.isPopular) {
+        markerSvg = MARKER_SVGS.marker2;
+      } else {
+        markerSvg = MARKER_SVGS.marker1;
+      }
+
+      const marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(hospital.latitude, hospital.longitude),
+        map: mapInstance,
+        title: hospital.name,
+        icon: {
+          content: markerSvg,
+          size: new naver.maps.Size(32, 48),
+          anchor: new naver.maps.Point(16, 48), // 마커 하단 중앙을 기준점으로
+        },
+      });
+
+      naver.maps.Event.addListener(marker, "click", () => {
+        console.log(hospital);
+      });
+
+      markers.push(marker);
+    });
+
+    // 클린업 함수
+    return () => {
+      markers.forEach((marker) => marker.setMap(null));
+    };
+  }, [mapInstance, isLoaded, hospitalData]);
 
   if (error) {
     return (

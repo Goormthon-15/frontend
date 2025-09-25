@@ -6,13 +6,14 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { HospitalList } from "./list/HospitalList";
 import { HospitalFilter } from "./HospitalFilter";
 import { FoldOutlineIcon, ListIcon } from "@vapor-ui/icons";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
+import { jejuHospitals, seogwipoHospitals } from "../_mock/kor_mock";
 
 export function HospitalContent() {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const view = searchParams.get("view");
-  const pathname = usePathname();
 
   const isMapView = view === "map";
 
@@ -55,30 +56,79 @@ export function HospitalContent() {
     }
   };
 
+  // 필터링된 데이터를 계산하는 로직 추가
+  const filteredData = useMemo(() => {
+    let filtered = [...jejuHospitals, ...seogwipoHospitals];
+
+    // location 파라미터 필터링
+    const location = searchParams.get("location");
+    if (location) {
+      const decodedLocation = decodeURIComponent(location);
+      if (decodedLocation.includes("제주시")) {
+        filtered = filtered.filter(
+          (hospital) => hospital.address2 === "제주시"
+        );
+      } else if (decodedLocation.includes("서귀포")) {
+        filtered = filtered.filter(
+          (hospital) => hospital.address2 === "서귀포시"
+        );
+      }
+    }
+
+    // options 파라미터 필터링
+    const options = searchParams.get("options");
+    if (options) {
+      const optionList = options.split(",");
+
+      // newopen: 현재 진료 중인 병원만
+      if (optionList.includes("newopen")) {
+        filtered = filtered.filter(
+          (hospital) => hospital.isCurrentlyOpen === true
+        );
+      }
+
+      // popular: 인기 병원만
+      if (optionList.includes("popular")) {
+        filtered = filtered.filter((hospital) => hospital.isPopular === true);
+      }
+
+      // favorite: 즐겨찾기 병원만
+      if (optionList.includes("favorite")) {
+        filtered = filtered.filter((hospital) => hospital.isFavorite === true);
+      }
+    }
+
+    return filtered;
+  }, [searchParams]);
+
   return (
     <>
-      <VStack gap={"32px"}>
+      <VStack gap={"32px"} backgroundColor={"$gray-050"}>
         <HospitalFilter />
 
-        <Box paddingX={"24px"} paddingBottom={"24px"}>
-          {isMapView ? <HospitalMap /> : <HospitalList />}
-        </Box>
-      </VStack>
-
-      <Button
-        size="xl"
-        className="fixed bottom-[48px] left-1/2 -translate-x-1/2 rounded-full"
-        onClick={handleViewChange}
-      >
         {isMapView ? (
-          <FoldOutlineIcon size={"24px"} />
+          <HospitalMap data={filteredData} />
         ) : (
-          <ListIcon size={"24px"} />
+          <Box paddingX={"24px"} paddingBottom={"24px"}>
+            <HospitalList data={filteredData} />
+          </Box>
         )}
-        <Text className="text-[#FDFDFD]">
-          {isMapView ? "목록 보기" : "지도 보기"}
-        </Text>
-      </Button>
+
+        <Button
+          size="xl"
+          className="fixed bottom-[48px] left-1/2 -translate-x-1/2 rounded-full"
+          onClick={handleViewChange}
+        >
+          {isMapView ? (
+            <FoldOutlineIcon size={"24px"} />
+          ) : (
+            <ListIcon size={"24px"} />
+          )}
+          <Text className="text-[#FDFDFD]">
+            {isMapView ? "목록 보기" : "지도 보기"}
+          </Text>
+        </Button>
+      </VStack>
     </>
   );
 }

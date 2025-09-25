@@ -22,6 +22,7 @@ const JEJU_LOCATIONS = {
   DEFAULT: "내 주변",
 
   제주시: {
+    제주시_전체: "제주시 전체",
     구제주: "구제주",
     신제주: "신제주",
     애월: "애월",
@@ -32,6 +33,7 @@ const JEJU_LOCATIONS = {
   },
 
   서귀포시: {
+    서귀포_전체: "서귀포 전체",
     서귀포_시내: "서귀포 시내",
     대정: "대정",
     안덕: "안덕",
@@ -95,17 +97,26 @@ export function DashboardHeader() {
   return (
     <>
       <HStack
-        justifyContent="space-between"
+        justifyContent={pathname !== "/dashboard" ? "space-between" : "end"}
         alignItems="center"
         backgroundColor={"$gray-050"}
         paddingX={"16px"}
         paddingY={"12px"}
         className="border-b border-[#E1E1E1]"
       >
+        {pathname !== "/dashboard" ? (
+          <IconButton
+            aria-label="back"
+            onClick={() => router.push("/dashboard")}
+            variant="ghost"
+          >
+            <ChevronLeftOutlineIcon size={"24"} color="black" />
+          </IconButton>
+        ) : null}
         <Button
           variant="ghost"
-          className="text-black"
           onClick={() => setIsLocationOverlayOpen(true)}
+          className={"absolute left-1/2 -translate-x-1/2 text-black"}
         >
           <FoldOutlineIcon size={"24"} />
           <Text typography="heading6">{location}</Text>
@@ -174,9 +185,7 @@ function LocationOverlay({
       onOpenChange={onClose}
       closeOnClickOverlay={false}
     >
-      <Dialog.Content
-        className={`w-[430px]! h-[932px]! m-0 rounded-none bg-white shadow-none flex flex-col`}
-      >
+      <Dialog.Content className={`w-[430px]! h-[932px]! m-0 rounded-none`}>
         <Dialog.Header className="flex items-center justify-between min-h-[64px] px-4 py-3 relative bg-gray-50 border-b border-[#E1E1E1]">
           <IconButton
             variant="ghost"
@@ -191,17 +200,15 @@ function LocationOverlay({
             typography="heading6"
             className="absolute left-1/2 -translate-x-1/2"
           >
-            주소 변경하기
+            Change Address
           </Text>
         </Dialog.Header>
 
         {/* 바디 - 지역 선택 내용 */}
-        <Dialog.Body className="flex-1 p-4 overflow-y-auto bg-gray-50 max-h-screen! grow!">
-          <VStack alignItems="stretch" className="h-full">
-            {/* 여기에 지역 선택 섹션들이 들어갑니다 */}
-
+        <Dialog.Body className="flex-1 p-6 overflow-y-auto bg-gray-50 max-h-screen! grow!">
+          <VStack>
             {/* 현재 위치 기반 섹션 */}
-            <LocationSection title="현재 위치 기반">
+            <LocationSection title="Current Location">
               <LocationButton
                 location={JEJU_LOCATIONS.DEFAULT}
                 isSelected={currentLocation === JEJU_LOCATIONS.DEFAULT}
@@ -211,34 +218,27 @@ function LocationOverlay({
 
             {/* 제주시 섹션 */}
             <LocationSection title="제주시">
-              <HStack alignItems="stretch" className="gap-2">
-                {Object.values(JEJU_LOCATIONS.제주시).map((city) => (
-                  <LocationButton
-                    key={city}
-                    location={city}
-                    isSelected={currentLocation === city}
-                    onSelect={onLocationSelect}
-                  />
-                ))}
-              </HStack>
+              {Object.values(JEJU_LOCATIONS.제주시).map((city) => (
+                <LocationButton
+                  key={city}
+                  location={city}
+                  isSelected={currentLocation === city}
+                  onSelect={onLocationSelect}
+                />
+              ))}
             </LocationSection>
 
             {/* 서귀포시 섹션 */}
             <LocationSection title="서귀포시">
-              <HStack alignItems="stretch" className="gap-2">
-                {Object.values(JEJU_LOCATIONS.서귀포시).map((city) => (
-                  <LocationButton
-                    key={city}
-                    location={city}
-                    isSelected={currentLocation === city}
-                    onSelect={onLocationSelect}
-                  />
-                ))}
-              </HStack>
+              {Object.values(JEJU_LOCATIONS.서귀포시).map((city) => (
+                <LocationButton
+                  key={city}
+                  location={city}
+                  isSelected={currentLocation === city}
+                  onSelect={onLocationSelect}
+                />
+              ))}
             </LocationSection>
-
-            {/* 하단 여백 추가 */}
-            <div className="h-20" />
           </VStack>
         </Dialog.Body>
       </Dialog.Content>
@@ -254,13 +254,8 @@ function LocationSection({
   children: React.ReactNode;
 }) {
   return (
-    <VStack
-      alignItems="stretch"
-      className="bg-white rounded-lg p-4 shadow-sm border border-gray-100"
-    >
-      <Text typography="heading6" className="font-semibold text-gray-800">
-        {title}
-      </Text>
+    <VStack paddingX={"16px"} paddingY={"12px"} gap={"24px"}>
+      <Text typography="heading5">{title}</Text>
       {children}
     </VStack>
   );
@@ -281,18 +276,11 @@ function LocationButton({
   return (
     <Button
       size="lg"
-      variant={isSelected ? "fill" : "outline"}
-      className={`
-        px-4 py-2 rounded-full text-sm font-medium transition-all
-        ${
-          isSelected
-            ? "bg-primary-500 text-white border-primary-500 shadow-md"
-            : "bg-white text-gray-700 border-gray-300 hover:border-blue-300 hover:text-blue-600"
-        }
-      `}
+      variant={"outline"}
       onClick={() => onSelect(location)}
+      className={!isSelected ? "bg-white border-[#E1E1E1]" : ""}
     >
-      {location}
+      <Text typography="subtitle1">{location}</Text>
     </Button>
   );
 }

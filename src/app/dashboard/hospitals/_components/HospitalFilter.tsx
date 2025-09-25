@@ -48,25 +48,36 @@ export function HospitalFilter() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // 기존 search params를 유지하면서 새로운 파라미터 추가/업데이트하는 함수
-  const updateSearchParams = useCallback(
-    (key: string, value: string | null) => {
-      const params = new URLSearchParams(searchParams.toString());
-
-      if (value === null) {
-        params.delete(key);
-      } else {
-        params.set(key, value);
-      }
-
-      router.push(`${pathname}?${params.toString()}`);
-    },
-    [searchParams, router, pathname]
-  );
-
   const handleDefaultClick = (option: DefaultOptions) => {
-    // 기존 search params를 유지하면서 default 파라미터만 업데이트
-    updateSearchParams("default", option);
+    const params = new URLSearchParams(searchParams.toString());
+
+    // 현재 선택된 옵션들을 가져오기
+    const currentOptions =
+      params.get("options")?.split(",").filter(Boolean) || [];
+
+    // 옵션이 이미 선택되어 있다면 제거, 없다면 추가
+    const optionIndex = currentOptions.indexOf(option);
+    if (optionIndex > -1) {
+      currentOptions.splice(optionIndex, 1);
+    } else {
+      currentOptions.push(option);
+    }
+
+    // 옵션이 있으면 설정, 없으면 파라미터 제거
+    if (currentOptions.length > 0) {
+      params.set("options", currentOptions.join(","));
+    } else {
+      params.delete("options");
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  // 선택된 옵션인지 확인하는 헬퍼 함수
+  const isOptionSelected = (option: DefaultOptions) => {
+    const currentOptions =
+      searchParams.get("options")?.split(",").filter(Boolean) || [];
+    return currentOptions.includes(option);
   };
 
   return (
@@ -75,28 +86,41 @@ export function HospitalFilter() {
       justifyContent={"space-between"}
       paddingX={"16px"}
       paddingY={"12px"}
+      position={"relative"}
+      overflow={"scroll"}
     >
-      <HStack gap={"$200"}>
-        {Object.values(DEFAULT_OPTIONS).map((option) => (
-          <Button
-            key={option}
-            variant="outline"
-            color={"primary"}
-            size="lg"
-            className="rounded-[4px]"
-            onClick={() => handleDefaultClick(option)}
-          >
-            <Text
-              typography="subtitle1"
-              className="text-foreground-secondary-100"
+      <HStack gap={"$200"} overflow={"scroll"} width={"80%"}>
+        {Object.values(DEFAULT_OPTIONS).map((option) => {
+          const isSelected = isOptionSelected(option);
+          return (
+            <Button
+              key={option}
+              variant={isSelected ? "fill" : "outline"}
+              color={isSelected ? "primary" : "secondary"}
+              size="lg"
+              className="rounded-[4px]"
+              onClick={() => handleDefaultClick(option)}
             >
-              {DEFAULT_OPTIONS_LABELS[option]}
-            </Text>
-          </Button>
-        ))}
+              <Text
+                typography="subtitle1"
+                className={
+                  isSelected
+                    ? "text-[#FDFDFD]"
+                    : "text-foreground-secondary-100"
+                }
+              >
+                {DEFAULT_OPTIONS_LABELS[option]}
+              </Text>
+            </Button>
+          );
+        })}
       </HStack>
 
-      <Button color={"primary"} size="lg" className="rounded-[4px]">
+      <Button
+        color={"primary"}
+        size="lg"
+        className="rounded-[4px] absolute right-0"
+      >
         <Text
           typography="subtitle1"
           className="text-foreground-secondary-100 text-[#fdfdfd]"

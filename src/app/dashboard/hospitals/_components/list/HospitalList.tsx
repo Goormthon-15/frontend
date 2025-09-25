@@ -16,61 +16,29 @@ import {
 } from "@vapor-ui/icons";
 import { useState } from "react";
 import { getDistance, convertDistance } from "geolib";
+import { IHospital } from "../../_mock/kor_mock";
 
-export function HospitalList() {
+export function HospitalList({ data }: { data: IHospital[] }) {
   return (
     <VStack gap={"16px"}>
-      {Array.from({ length: 10 }).map((_, index) => (
-        <HospitalItem key={index} item={mockData} />
+      {data.map((item) => (
+        <HospitalItem key={item.id} item={item} />
       ))}
     </VStack>
   );
 }
 
-// interface HospitalType {
-//   id: number;
-//   name: string;
-//   address: string;
-//   phoneNumber: string;
-//   department: string;
-//   departmentKorean: string;
-//   isPopular: boolean;
-//   isCurrentlyOpen: boolean | null;
-//   latitude: number;
-//   longitude: number;
-//   isFavorite: boolean;
-// }
-
-interface IHospital {
-  id: number;
-  name: string;
-  address1: string;
-  address2: string;
-  address3: string;
-  phone: string;
-  type: string;
-  officeHours: string;
-  isPopular: boolean;
-  isCurrentlyOpen: boolean | null;
-  latitude: number;
-  longitude: number;
-  isFavorite: boolean;
-}
-
-const mockData: IHospital = {
-  id: 2,
-  name: "삼성서울병원",
-  address1: "서울특별시",
-  address2: "강남구",
-  address3: "일원로 81",
-  phone: "02-3410-2114",
-  type: "SURGERY",
-  officeHours: "09:00 - 18:00",
-  isPopular: true,
-  isCurrentlyOpen: null,
-  latitude: 37.4881,
-  longitude: 127.0856,
-  isFavorite: false,
+const DEFAULTENT_LABELS = {
+  GENERAL: "일반",
+  EMERGENCY: "응급",
+  CHILDREN: "소아",
+  OBSTETRICS: "산부인과",
+  ORTHOPEDICS: "정형외과",
+  PEDIATRICS: "소아청소년과",
+  ENT: "이비인후과",
+  OPHTHALMOLOGY: "안과",
+  DERMATOLOGY: "피부과",
+  OTHER: "기타",
 };
 
 interface HospitalItemProps {
@@ -85,7 +53,7 @@ function HospitalItem({ item }: HospitalItemProps) {
   // 사용 예시
   const distance = getDistance(
     { latitude: JEJU_CENTER.lat, longitude: JEJU_CENTER.lng }, // 제주 시청
-    { latitude: 33.5, longitude: 126.532 } // 병원 위치
+    { latitude: item.latitude, longitude: item.longitude } // 병원 위치
   );
 
   const distanceKm = convertDistance(distance, "km") ?? 0;
@@ -97,7 +65,10 @@ function HospitalItem({ item }: HospitalItemProps) {
           <Flex gap={"16px"} alignItems={"center"}>
             <Text typography="heading5">{item.name}</Text>
             <Text className="text-gray-100">|</Text>
-            <Text typography="heading6">{item.type}</Text>
+            <Text typography="heading6">
+              {DEFAULTENT_LABELS[item.type as keyof typeof DEFAULTENT_LABELS] ??
+                "일반"}
+            </Text>
           </Flex>
 
           <IconButton
@@ -129,7 +100,7 @@ function HospitalItem({ item }: HospitalItemProps) {
                 </Text>
               </Badge>
               <Text className="text-gray-100">|</Text>
-              <Text typography="heading6">{"6시까지만 해용"}</Text>
+              <Text typography="heading6">{item.officeHours}</Text>
             </Flex>
           </HStack>
           <HStack alignItems={"center"} gap={"15px"}>
@@ -142,7 +113,7 @@ function HospitalItem({ item }: HospitalItemProps) {
               <Text typography="subtitle1">{distanceKm.toFixed(1)}km</Text>
             </Badge>
             <Text className="text-gray-100">|</Text>
-            <Text typography="heading6">
+            <Text typography="heading6" className="truncate max-w-[150px]">
               {item.address1} {item.address2} {item.address3}
             </Text>
           </HStack>

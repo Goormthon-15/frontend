@@ -37,7 +37,7 @@ body {
   --vapor-color-background-primary-200: #106c6c;
   --vapor-color-foreground-foreground-100: #005d5d;
   --vapor-color-foreground-foreground-200: #00494a;
-  --vapor-color-border-primay: #106c6c;
+  --vapor-color-border-primary: #106c6c;
 }
 
 /* 다이어로그 오버레이 색상 사라지게 했읍니다 */
