@@ -96,16 +96,22 @@ export const Toasts = () => {
   return (
     <div
       ref={toastDivRef}
-      className={`text-text-primary left-1/2 -translate-x-1/2 absolute z-[99999] max-w-[390px] 
-       items-center rounded-[32px] border border-gray-300 bg-white text-[14px] font-[400] 
+      className={`left-1/2 -translate-x-1/2 absolute z-[99999] max-w-[calc(100%-40px)]
+       items-center rounded-[8px] border border-[#106C6C] text-[#106C6C] text-[14px] font-[400] 
        leading-[20px] duration-300 ease-in-out px-[12px] py-[8px] top-0 opacity-0 hidden
+       bg-[#CCEDED]
       `}
     >
       {toastStore.toasts.length >= 0 && (
         <div className="flex items-center">
-          <InfoCircleIcon width={32} height={32} className="mr-[12px]" />
+          <InfoCircleIcon
+            width={22}
+            height={22}
+            className="mr-[8px]"
+            style={{ color: "#106c6c" }}
+          />
           <div
-            className="w-full font-medium text-[17px] text-gray-700 flex items-center -translate-y-[1px]"
+            className="w-full font-medium text-[16px]  flex items-center -translate-y-[1px]"
             dangerouslySetInnerHTML={{
               __html: toastStore.toasts[0]?.message as string | Node,
             }}

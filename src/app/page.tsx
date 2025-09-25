@@ -119,8 +119,14 @@ export default function Home() {
         language: LANGUAGE_OPTIONS[locale],
       };
       console.log("req!!!,", req);
-      const { data } = await apiRequester.post("/users", req);
-      console.log("data!!!,", data);
+      const res = await apiRequester.post("/users", req);
+
+      if (res.status === 200) {
+        toast("Account created successfully");
+        router.push("/dashboard");
+      }
+
+      console.log("res!!!,", res);
     } catch (error) {
       console.log(error);
     }
@@ -141,17 +147,6 @@ export default function Home() {
     }
   }, [selectedYear, selectedMonth, selectedDay]);
 
-  // 공식 문서에 따라 custom error 타입 객체 반환
-  // const validate = (value: unknown) => {
-  //   const email = String(value);
-  //   const EMAIL_REGEX =
-  //     /^[a-zA-Z0-9]{1}[a-zA-Z0-9-_.]*@[a-zA-Z0-9-]+.[a-zA-Z0-9-_]+(.[a-zA-Z0-9-_]+)?$/;
-  //   if (!EMAIL_REGEX.test(email)) {
-  //     return "올바른 이메일 형식을 입력해주세요.";
-  //   }
-  //   // null을 반환하거나, Base UI에서 required하지 않으면 undefined
-  //   return null;
-  // };
   return (
     <>
       <VStack gap={"$400"} backgroundColor={"$gray-050"} height={"100%"}>
@@ -380,11 +375,22 @@ export default function Home() {
         <div className="fixed left-[10px] top-[40px] bg-black text-white p-4! rounded-md cursor-pointer">
           <div
             onClick={() => {
-              toast("토스트 메시지");
               router.push("/dashboard");
             }}
           >
             바로 대시보드(dev에서만 보임)
+          </div>
+        </div>
+      )}
+
+      {process.env.NODE_ENV === "development" && (
+        <div className="fixed right-[10px] top-[40px] bg-black text-white p-4! rounded-md cursor-pointer">
+          <div
+            onClick={() => {
+              toast("토스트 메시지");
+            }}
+          >
+            토스트 확인해보기
           </div>
         </div>
       )}
