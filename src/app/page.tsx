@@ -121,7 +121,7 @@ export default function Home() {
       console.log("req!!!,", req);
       const res = await apiRequester.post("/users", req);
 
-      if (res.status === 200) {
+      if (res.status === 201) {
         toast("Account created successfully");
         router.push("/dashboard");
       }
