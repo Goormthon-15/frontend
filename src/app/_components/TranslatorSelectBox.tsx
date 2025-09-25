@@ -11,7 +11,7 @@ export default function TranslatorSelectBox() {
       defaultValue={TRANSLATOR_SELECT_BOX_DEFAULT_VALUE}
     >
       <Select.Trigger>
-        <Select.Value />
+        <Select.Value/>
         <Select.TriggerIcon />
       </Select.Trigger>
 
