@@ -46,12 +46,12 @@ export default async function RootLayout({
             height={"100vh"}
             justifyContent="center"
             alignItems="center"
-            backgroundColor={"$gray-050"}
+            backgroundColor={"$white"}
           >
             <VStack
               width={MOBILE_FRAME_WIDTH}
               height={MOBILE_FRAME_HEIGHT}
-              backgroundColor={"#ffffff"}
+              backgroundColor={"#$gray-050"}
             >
               {children}
             </VStack>

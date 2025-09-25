@@ -1,7 +1,6 @@
 "use client";
 
 import TranslatorSelectBox from "@/app/_components/TranslatorSelectBox";
-import { MOBILE_FRAME_HEIGHT } from "@/app/_constants/index.constants";
 import {
   Button,
   HStack,
@@ -98,7 +97,8 @@ export function DashboardHeader() {
       <HStack
         justifyContent="space-between"
         alignItems="center"
-        className="px-6! py-2! border-b-gray-100! border-b-1!"
+        backgroundColor={"$gray-050"}
+        className="px-6! py-2!"
       >
         <Button
           variant="ghost"
@@ -156,7 +156,7 @@ function LocationOverlay({
       closeOnClickOverlay={false}
     >
       <Dialog.Content
-        className={`w-[400px] h-[720px] m-0 rounded-none bg-white shadow-none`}
+        className={`w-[430px]! h-[932px]! m-0 rounded-none bg-white shadow-none flex flex-col`}
       >
         <Dialog.Header className="flex items-center justify-between px-6! py-2! relative">
           <IconButton
@@ -177,7 +177,7 @@ function LocationOverlay({
         </Dialog.Header>
 
         {/* 바디 - 지역 선택 내용 */}
-        <Dialog.Body className="flex-1 p-4 overflow-y-auto bg-gray-50">
+        <Dialog.Body className="flex-1 p-4 overflow-y-auto bg-gray-50 max-h-screen! grow!">
           <VStack alignItems="stretch" className="h-full">
             {/* 여기에 지역 선택 섹션들이 들어갑니다 */}
 
