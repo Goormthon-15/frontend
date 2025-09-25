@@ -8,11 +8,11 @@ export const TRANSLATOR_SELECT_LIST = [
     label: "한국어",
   },
   {
-    value: "zh-CN",
+    value: "zh-CHS",
     label: "简体中文",
   },
   {
-    value: "zh-TW",
+    value: "zh-CHT",
     label: "繁體中文",
   },
 ];
