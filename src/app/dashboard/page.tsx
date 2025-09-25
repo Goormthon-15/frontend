@@ -6,6 +6,7 @@ import IconAmbulatoryClinic from "@/assets/svgs/icon-ambulatory-clinic.svg";
 import { DotIcon } from "@vapor-ui/icons";
 import { DashboardGrid } from "./_components/DashboardGrid";
 import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "@/utils/index.utils";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -92,6 +93,18 @@ export default function DashboardPage() {
       </VStack>
 
       <DashboardGrid />
+
+      {process.env.NODE_ENV === "development" && (
+        <div className="fixed right-[10px] top-[40px] bg-black text-white p-4! rounded-md cursor-pointer">
+          <div
+            onClick={() => {
+              toast("토스트 메시지");
+            }}
+          >
+            토스트 확인해보기
+          </div>
+        </div>
+      )}
     </VStack>
   );
 }
