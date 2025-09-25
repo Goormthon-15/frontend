@@ -13,6 +13,7 @@ export function HospitalContent() {
 
   return (
     <VStack className="p-4!">
+      sdf
       {isMapView ? <HospitalMap /> : <HospitalList />}
     </VStack>
   );

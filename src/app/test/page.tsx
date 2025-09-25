@@ -5,6 +5,7 @@ import HospitalDetailStackPage from "@/app/test/_components/stack-pages/Hospital
 import { useState } from "react";
 import { Button } from "@vapor-ui/core";
 import ExampleStackPage from "@/app/test/_components/stack-pages/_ExampleStackPage";
+import Splash from "@/app/_components/Splash";
 
 export default function Test() {
   const [isHospitalDetailStackPageOpen, setIsHospitalDetailStackPageOpen] =
@@ -36,6 +37,7 @@ export default function Test() {
           onClose={() => setIsHospitalDetailStackPageOpen(false)}
         />
       </>
+      <Splash />
     </div>
   );
 }
