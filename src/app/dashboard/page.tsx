@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function DashboardPage() {
   return (
     <>
-      <VStack>
+      <VStack paddingX={"$100"}>
         <Button render={<Link href="/dashboard/hospitals?view=map" />}>
           병원 찾기
         </Button>

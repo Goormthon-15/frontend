@@ -17,7 +17,7 @@ export default function ExampleStackPage({
       closeOnClickOverlay={false}
     >
       <Dialog.Content
-        className={`w-[400px] h-[720px] m-0 rounded-none bg-white shadow-none`}
+        className={`w-[430px] h-[932px] m-0 rounded-none bg-white shadow-none`}
       >
         <Dialog.Header className="flex items-center justify-between px-6! py-2! relative">
           <IconButton
