@@ -7,6 +7,10 @@
     {
       "folderPath": "frontend\\src\\app\\",
       "color": "foldercolorizer.color_00cc99"
+    },
+    {
+      "folderPath": "frontend\\src\\app\\dashboard\\",
+      "color": "foldercolorizer.color_cc00ff"
     }
   ]
 }
