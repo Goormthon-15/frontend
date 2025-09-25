@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: process.env.NEXT_PUBLIC_API_URL + "/api/:path*",
+        destination: "https://goormthon-2.goorm.training/api/:path*",
       },
     ];
   },
