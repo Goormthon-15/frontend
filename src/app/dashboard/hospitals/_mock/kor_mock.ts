@@ -1,20 +1,4 @@
-export interface IHospital {
-  id: number;
-  name: string;
-  address1: string;
-  address2: string;
-  address3: string;
-  phone: string;
-  type: string;
-  officeHours: string;
-  isPopular: boolean;
-  isCurrentlyOpen: boolean | null;
-  latitude: number;
-  longitude: number;
-  isFavorite: boolean;
-}
-
-export const jejuHospitals: IHospital[] = [
+[
   {
     id: 1,
     name: "제주대학교병원",
@@ -29,6 +13,8 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4734,
     longitude: 126.5021,
     isFavorite: true,
+    engName: "Jeju National University Hospital",
+    engAddress: "Jeju Special Self-Governing Province, Jeju-si, ARan13-gil, 15",
   },
   {
     id: 2,
@@ -44,6 +30,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.489,
     longitude: 126.4983,
     isFavorite: true,
+    engName: "Jeju Halla Hospital",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Doryeong-ro, 65",
   },
   {
     id: 3,
@@ -59,6 +48,8 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4845,
     longitude: 126.4728,
     isFavorite: false,
+    engName: "Jeju Provincial Hospital",
+    engAddress: "Jeju Special Self-Governing Province, Jeju-si, Wolsan-ro, 387",
   },
   {
     id: 4,
@@ -74,6 +65,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4996,
     longitude: 126.5312,
     isFavorite: false,
+    engName: "Hanguk Hospital",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Seogwang-ro, 193",
   },
   {
     id: 5,
@@ -89,6 +83,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5009,
     longitude: 126.5221,
     isFavorite: false,
+    engName: "Jeju-si Internal Medicine Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Jungang-ro, 123",
   },
   {
     id: 6,
@@ -104,6 +101,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5023,
     longitude: 126.5234,
     isFavorite: false,
+    engName: "Jeju Pediatrics",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Samdo-2-dong, 234",
   },
   {
     id: 7,
@@ -119,6 +119,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5045,
     longitude: 126.5267,
     isFavorite: false,
+    engName: "Jeju Orthopedics",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ildo-2-dong, 345",
   },
   {
     id: 8,
@@ -134,6 +137,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5123,
     longitude: 126.5189,
     isFavorite: false,
+    engName: "Jeju Obstetrics & Gynecology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Yongdam-3-dong, 456",
   },
   {
     id: 9,
@@ -149,6 +155,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4978,
     longitude: 126.5134,
     isFavorite: false,
+    engName: "Jeju Otorhinolaryngology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Geonip-dong, 567",
   },
   {
     id: 10,
@@ -164,6 +173,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4856,
     longitude: 126.4923,
     isFavorite: false,
+    engName: "Jeju Eye Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ora-2-dong, 678",
   },
   {
     id: 11,
@@ -179,6 +191,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4745,
     longitude: 126.4812,
     isFavorite: false,
+    engName: "Jeju Family Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Nohyeong-dong, 789",
   },
   {
     id: 12,
@@ -194,6 +209,8 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4892,
     longitude: 126.4756,
     isFavorite: false,
+    engName: "Jeju Dermatology",
+    engAddress: "Jeju Special Self-Governing Province, Jeju-si, Yeon-dong, 890",
   },
   {
     id: 13,
@@ -209,6 +226,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5067,
     longitude: 126.5278,
     isFavorite: false,
+    engName: "Jeju Dental Hospital",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ido-1-dong, 901",
   },
   {
     id: 14,
@@ -224,6 +244,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5134,
     longitude: 126.5301,
     isFavorite: false,
+    engName: "Jeju Neurology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Samdo-3-dong, 012",
   },
   {
     id: 15,
@@ -239,6 +262,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5156,
     longitude: 126.5123,
     isFavorite: false,
+    engName: "Jeju Psychiatry",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Yongdam-1-dong, 123",
   },
   {
     id: 16,
@@ -254,6 +280,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5234,
     longitude: 126.5445,
     isFavorite: false,
+    engName: "Jeju Urology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Hwabuk-1-dong, 234",
   },
   {
     id: 17,
@@ -269,6 +298,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5067,
     longitude: 126.4578,
     isFavorite: false,
+    engName: "Jeju Surgery Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Iho-1-dong, 345",
   },
   {
     id: 18,
@@ -284,6 +316,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5123,
     longitude: 126.4689,
     isFavorite: false,
+    engName: "Jeju Rehabilitation Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Dodu-1-dong, 456",
   },
   {
     id: 19,
@@ -299,6 +334,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5234,
     longitude: 126.5567,
     isFavorite: false,
+    engName: "Jeju Radiology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Hwabuk-2-dong, 567",
   },
   {
     id: 20,
@@ -314,6 +352,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4734,
     longitude: 126.5021,
     isFavorite: false,
+    engName: "Jeju Korean Medicine Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ara-1-dong, 678",
   },
   {
     id: 21,
@@ -329,6 +370,8 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4892,
     longitude: 126.4756,
     isFavorite: false,
+    engName: "Jeju Emergency Medicine",
+    engAddress: "Jeju Special Self-Governing Province, Jeju-si, Yeon-dong, 789",
   },
   {
     id: 22,
@@ -344,6 +387,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4856,
     longitude: 126.4923,
     isFavorite: false,
+    engName: "Jeju Anesthesiology & Pain Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ora-3-dong, 890",
   },
   {
     id: 23,
@@ -359,6 +405,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4745,
     longitude: 126.4812,
     isFavorite: false,
+    engName: "Jeju Endocrinology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Nohyeong-dong, 901",
   },
   {
     id: 24,
@@ -374,6 +423,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5045,
     longitude: 126.5267,
     isFavorite: false,
+    engName: "Jeju Cardiology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ildo-2-dong, 012",
   },
   {
     id: 25,
@@ -389,6 +441,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5023,
     longitude: 126.5234,
     isFavorite: false,
+    engName: "Jeju Pulmonology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Samdo-2-dong, 123",
   },
   {
     id: 26,
@@ -404,6 +459,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5123,
     longitude: 126.5189,
     isFavorite: false,
+    engName: "Jeju Gastroenterology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Yongdam-3-dong, 234",
   },
   {
     id: 27,
@@ -419,6 +477,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4978,
     longitude: 126.5134,
     isFavorite: false,
+    engName: "Jeju Vascular Surgery",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Geonip-dong, 345",
   },
   {
     id: 28,
@@ -434,6 +495,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5067,
     longitude: 126.5278,
     isFavorite: false,
+    engName: "Jeju Thoracic Surgery",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ido-1-dong, 456",
   },
   {
     id: 29,
@@ -449,6 +513,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5134,
     longitude: 126.5301,
     isFavorite: false,
+    engName: "Jeju Nephrology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Samdo-3-dong, 567",
   },
   {
     id: 30,
@@ -464,6 +531,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5156,
     longitude: 126.5123,
     isFavorite: false,
+    engName: "Jeju Rheumatology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Yongdam-1-dong, 678",
   },
   {
     id: 31,
@@ -479,6 +549,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5234,
     longitude: 126.5445,
     isFavorite: false,
+    engName: "Jeju Infectious Disease",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Hwabuk-1-dong, 789",
   },
   {
     id: 32,
@@ -494,6 +567,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5067,
     longitude: 126.4578,
     isFavorite: false,
+    engName: "Jeju Oncology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Iho-1-dong, 890",
   },
   {
     id: 33,
@@ -509,6 +585,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5123,
     longitude: 126.4689,
     isFavorite: false,
+    engName: "Jeju Allergy",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Dodu-1-dong, 901",
   },
   {
     id: 34,
@@ -524,6 +603,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5234,
     longitude: 126.5567,
     isFavorite: false,
+    engName: "Jeju Nuclear Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Hwabuk-2-dong, 012",
   },
   {
     id: 35,
@@ -539,6 +621,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4734,
     longitude: 126.5021,
     isFavorite: false,
+    engName: "Jeju Pathology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ara-1-dong, 123",
   },
   {
     id: 36,
@@ -554,6 +639,8 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4892,
     longitude: 126.4756,
     isFavorite: false,
+    engName: "Jeju Laboratory Medicine",
+    engAddress: "Jeju Special Self-Governing Province, Jeju-si, Yeon-dong, 234",
   },
   {
     id: 37,
@@ -569,6 +656,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4856,
     longitude: 126.4923,
     isFavorite: false,
+    engName: "Jeju Preventive Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ora-3-dong, 345",
   },
   {
     id: 38,
@@ -584,6 +674,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.4745,
     longitude: 126.4812,
     isFavorite: false,
+    engName: "Jeju Occupational Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Nohyeong-dong, 456",
   },
   {
     id: 39,
@@ -599,6 +692,9 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5045,
     longitude: 126.5267,
     isFavorite: false,
+    engName: "JeJuSeongHyeongxx",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Ildo-2-dong, 567",
   },
   {
     id: 40,
@@ -614,11 +710,10 @@ export const jejuHospitals: IHospital[] = [
     latitude: 33.5023,
     longitude: 126.5234,
     isFavorite: false,
+    engName: "JeJuxxxx",
+    engAddress:
+      "Jeju Special Self-Governing Province, Jeju-si, Samdo-2-dong, 678",
   },
-];
-
-// 서귀포시 병원 데이터 (40개, isFavorite 2개)
-export const seogwipoHospitals: IHospital[] = [
   {
     id: 41,
     name: "365플러스내과의원",
@@ -633,6 +728,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.3105938,
     longitude: 126.726177,
     isFavorite: true,
+    engName: "365 Plus Internal Medicine Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Iljudong-ro, 9159, 4F, (xHwan-dong)",
   },
   {
     id: 42,
@@ -648,6 +746,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2452,
     longitude: 126.5622,
     isFavorite: true,
+    engName: "Seogwipo Medical Center",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Jungang-ro, 47",
   },
   {
     id: 43,
@@ -663,6 +764,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2523,
     longitude: 126.5634,
     isFavorite: false,
+    engName: "Seogwipo Jeil Hospital",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Taepyeong-ro, 439",
   },
   {
     id: 44,
@@ -678,6 +782,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2467,
     longitude: 126.5678,
     isFavorite: false,
+    engName: "Seogwipo Internal Medicine Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, DongHong-dong, 456",
   },
   {
     id: 45,
@@ -693,6 +800,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2489,
     longitude: 126.5701,
     isFavorite: false,
+    engName: "Seogwipo Pediatrics",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Seogwi-dong, 567",
   },
   {
     id: 46,
@@ -708,6 +818,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2567,
     longitude: 126.4123,
     isFavorite: false,
+    engName: "Jungmun Orthopedics",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Jungmun-dong, 123",
   },
   {
     id: 47,
@@ -723,6 +836,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2345,
     longitude: 126.4567,
     isFavorite: false,
+    engName: "Seogwipo Obstetrics & Gynecology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Bomok-dong, 789",
   },
   {
     id: 48,
@@ -738,6 +854,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.4567,
     longitude: 126.8901,
     isFavorite: false,
+    engName: "Seongsan Otorhinolaryngology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Seongsan-eup, 234",
   },
   {
     id: 49,
@@ -753,6 +872,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2678,
     longitude: 126.5234,
     isFavorite: false,
+    engName: "Seogwipo Eye Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Chilsimni-ro, 345",
   },
   {
     id: 50,
@@ -768,6 +890,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.3234,
     longitude: 126.8345,
     isFavorite: false,
+    engName: "Pyoseon Family Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Pyoseon-myeon, 456",
   },
   {
     id: 51,
@@ -783,6 +908,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2456,
     longitude: 126.4678,
     isFavorite: false,
+    engName: "Seogwipo Dermatology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Daepo-dong, 567",
   },
   {
     id: 52,
@@ -798,6 +926,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2789,
     longitude: 126.7123,
     isFavorite: false,
+    engName: "Namwon Neurology Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Namwon-eup, 678",
   },
   {
     id: 53,
@@ -813,6 +944,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2567,
     longitude: 126.5456,
     isFavorite: false,
+    engName: "Seogwipo Dental Hospital",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Songsan-dong, 789",
   },
   {
     id: 54,
@@ -828,6 +962,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.289,
     longitude: 126.3123,
     isFavorite: false,
+    engName: "Andeok Psychiatry",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Andeok-myeon, 890",
   },
   {
     id: 55,
@@ -843,6 +980,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2345,
     longitude: 126.5678,
     isFavorite: false,
+    engName: "Seogwipo Urology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Tox-dong, 901",
   },
   {
     id: 56,
@@ -858,6 +998,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2123,
     longitude: 126.2456,
     isFavorite: false,
+    engName: "Daejeong Surgery Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Daejeong-eup, 012",
   },
   {
     id: 57,
@@ -873,6 +1016,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2678,
     longitude: 126.5901,
     isFavorite: false,
+    engName: "Seogwipo Rehabilitation Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Hyodon-dong, 123",
   },
   {
     id: 58,
@@ -888,6 +1034,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2456,
     longitude: 126.4234,
     isFavorite: false,
+    engName: "Jungmun Radiology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Saekdal-dong, 234",
   },
   {
     id: 59,
@@ -903,6 +1052,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2234,
     longitude: 126.5567,
     isFavorite: false,
+    engName: "Seogwipo Korean Medicine Clinic",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Jeongbang-dong, 345",
   },
   {
     id: 60,
@@ -918,6 +1070,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.4789,
     longitude: 126.9123,
     isFavorite: false,
+    engName: "Seongsan Emergency Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Seongsan-eup, 456",
   },
   {
     id: 61,
@@ -933,6 +1088,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2567,
     longitude: 126.5234,
     isFavorite: false,
+    engName: "Seogwipo Anesthesiology & Pain Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Cheonji-dong, 567",
   },
   {
     id: 62,
@@ -948,6 +1106,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.3456,
     longitude: 126.8567,
     isFavorite: false,
+    engName: "Pyoseon Endocrinology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Pyoseon-myeon, 678",
   },
   {
     id: 63,
@@ -963,6 +1124,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.289,
     longitude: 126.7234,
     isFavorite: false,
+    engName: "Namwon Cardiology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Namwon-eup, 789",
   },
   {
     id: 64,
@@ -978,6 +1142,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2345,
     longitude: 126.5789,
     isFavorite: false,
+    engName: "Seogwipo Pulmonology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, DongHong-dong, 890",
   },
   {
     id: 65,
@@ -993,6 +1160,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.3012,
     longitude: 126.3456,
     isFavorite: false,
+    engName: "Andeok Gastroenterology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Andeok-myeon, 901",
   },
   {
     id: 66,
@@ -1008,6 +1178,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2456,
     longitude: 126.5678,
     isFavorite: false,
+    engName: "Seogwipo Vascular Surgery",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Seogwi-dong, 012",
   },
   {
     id: 67,
@@ -1023,6 +1196,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2234,
     longitude: 126.2678,
     isFavorite: false,
+    engName: "Daejeong Thoracic Surgery",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Daejeong-eup, 123",
   },
   {
     id: 68,
@@ -1038,6 +1214,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2678,
     longitude: 126.4901,
     isFavorite: false,
+    engName: "Seogwipo Nephrology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Beopjeong-dong, 234",
   },
   {
     id: 69,
@@ -1053,6 +1232,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2567,
     longitude: 126.4123,
     isFavorite: false,
+    engName: "Jungmun Rheumatology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Jungmun-dong, 345",
   },
   {
     id: 70,
@@ -1068,6 +1250,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.4901,
     longitude: 126.9345,
     isFavorite: false,
+    engName: "Seongsan Infectious Disease",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Seongsan-eup, 456",
   },
   {
     id: 71,
@@ -1083,6 +1268,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2345,
     longitude: 126.4567,
     isFavorite: false,
+    engName: "Seogwipo Oncology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Bomok-dong, 567",
   },
   {
     id: 72,
@@ -1098,6 +1286,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.3567,
     longitude: 126.8789,
     isFavorite: false,
+    engName: "Pyoseon Allergy",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Pyoseon-myeon, 678",
   },
   {
     id: 73,
@@ -1113,6 +1304,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2789,
     longitude: 126.7456,
     isFavorite: false,
+    engName: "Namwon Nuclear Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Namwon-eup, 789",
   },
   {
     id: 74,
@@ -1128,6 +1322,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2456,
     longitude: 126.5901,
     isFavorite: false,
+    engName: "Seogwipo Pathology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, DongHong-dong, 890",
   },
   {
     id: 75,
@@ -1143,6 +1340,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.3123,
     longitude: 126.3678,
     isFavorite: false,
+    engName: "Andeok Laboratory Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Andeok-myeon, 901",
   },
   {
     id: 76,
@@ -1158,6 +1358,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2567,
     longitude: 126.5234,
     isFavorite: false,
+    engName: "Seogwipo Preventive Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Seogwi-dong, 012",
   },
   {
     id: 77,
@@ -1173,6 +1376,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2345,
     longitude: 126.2901,
     isFavorite: false,
+    engName: "Daejeong Occupational Medicine",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Daejeong-eup, 123",
   },
   {
     id: 78,
@@ -1188,6 +1394,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2789,
     longitude: 126.5123,
     isFavorite: false,
+    engName: "Seogwipo Clinical Pharmacology",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Beopjeong-dong, 234",
   },
   {
     id: 79,
@@ -1203,6 +1412,9 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.2456,
     longitude: 126.4234,
     isFavorite: false,
+    engName: "Jungmun Plastic Surgery",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Jungmun-dong, 345",
   },
   {
     id: 80,
@@ -1218,5 +1430,8 @@ export const seogwipoHospitals: IHospital[] = [
     latitude: 33.5012,
     longitude: 126.9567,
     isFavorite: false,
+    engName: "Seongsan Emergency Center",
+    engAddress:
+      "Jeju Special Self-Governing Province, Seogwipo-si, Seongsan-eup, 456",
   },
 ];
