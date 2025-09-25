@@ -4,19 +4,22 @@ export default function middleware(request: NextRequest) {
   // ? pathname
   const originalUrl = request.nextUrl.pathname;
 
-  const res = NextResponse.redirect(new URL(originalUrl, request.url)); // 리디렉션 설정
-
   // lang cookie가 없다면 세팅
   if (!request.cookies.has("lng")) {
+    const res = NextResponse.redirect(new URL(originalUrl, request.url)); // 리디렉션 설정
     res.cookies.set("lng", "en", {
       maxAge: 60 * 60 * 24 * 365,
       sameSite: "lax",
       path: "/",
       httpOnly: false,
     });
+    return res;
   }
 
-  return res;
+  const response = NextResponse.next();
+  response.headers.set("x-pathname", originalUrl);
+
+  return response;
 }
 
 export const config = {

@@ -5,6 +5,7 @@ import TranslatorSelectBox from "@/app/_components/TranslatorSelectBox";
 
 export default function Translator() {
   const { t } = useTranslation();
+
   return (
     <div>
       <h1>Translator</h1>
