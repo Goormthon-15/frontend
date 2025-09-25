@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -14,6 +15,12 @@ const nextConfig: NextConfig = {
 
   /** svgr 관련 설정 */
   webpack(config) {
+    // @public alias 추가
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@public": path.resolve(__dirname, "public"),
+    };
+
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule: any) =>
       rule.test?.test?.(".svg")
