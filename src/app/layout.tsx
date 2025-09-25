@@ -9,6 +9,12 @@ import {
   getServerSideCookie,
   setServerSideCookie,
 } from "@/utils/server/cookies";
+import { HStack, VStack } from "@vapor-ui/core";
+import { DashboardHeader } from "@/app/dashboard/_components/DashboardHeader";
+import {
+  MOBILE_FRAME_HEIGHT,
+  MOBILE_FRAME_WIDTH,
+} from "@/app/_constants/index.constants";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -35,7 +41,21 @@ export default async function RootLayout({
       </head>
       <body>
         <LocaleProvider value={{ localeJson, serverLocale }}>
-          {children}
+          <HStack
+            width={"100%"}
+            height={"100vh"}
+            justifyContent="center"
+            alignItems="center"
+            backgroundColor={"$gray-050"}
+          >
+            <VStack
+              width={MOBILE_FRAME_WIDTH}
+              height={MOBILE_FRAME_HEIGHT}
+              backgroundColor={"#ffffff"}
+            >
+              {children}
+            </VStack>
+          </HStack>
         </LocaleProvider>
       </body>
     </html>
