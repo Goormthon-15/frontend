@@ -1,73 +1,24 @@
+"use client";
+
 import { Box, Flex, HStack, Text, VStack, Button } from "@vapor-ui/core";
 import IconHospital from "@/assets/svgs/icon-hospital.svg";
 import IconAmbulatoryClinic from "@/assets/svgs/icon-ambulatory-clinic.svg";
-import IconEntry from "@/assets/svgs/icon-entry.svg";
-import IconCommunication from "@/assets/svgs/icon-communication.svg";
-import IconAwardRibbon from "@/assets/svgs/icon-award_ribbon.svg";
-import IconGastroenterology from "@/assets/svgs/icon-gastroenterology.svg";
-import IconPediatrics from "@/assets/svgs/icon-pediatrics.svg";
-import IconCriticalCare from "@/assets/svgs/icon-critical_care.svg";
-import IconOrthopaedics from "@/assets/svgs/icon-orthopaedics.svg";
-import IconObstetricsmonia from "@/assets/svgs/icon-obstetricsmonia.svg";
-import IconEarNoseThroat from "@/assets/svgs/icon-ears_nose_and_throat.svg";
-import IconOphthalmology from "@/assets/svgs/icon-opthalmology.svg";
-import IconChaplaincy from "@/assets/svgs/icon-chaplaincy.svg";
-import IconHematology from "@/assets/svgs/icon-hematology.svg";
 import { DotIcon } from "@vapor-ui/icons";
 import { DashboardGrid } from "./_components/DashboardGrid";
-
-const GRID_ITEMS = [
-  {
-    label: "Now Open",
-    icon: IconEntry,
-  },
-  {
-    label: "Live Chat",
-    icon: IconCommunication,
-  },
-  {
-    label: "Popular",
-    icon: IconAwardRibbon,
-  },
-  {
-    label: "Internal",
-    icon: IconGastroenterology,
-  },
-  {
-    label: "Pediatrics",
-    icon: IconPediatrics,
-  },
-  {
-    label: "General",
-    icon: IconCriticalCare,
-  },
-  {
-    label: "Orthopaedics",
-    icon: IconOrthopaedics,
-  },
-  {
-    label: "OB/GYN",
-    icon: IconObstetricsmonia,
-  },
-  {
-    label: "ENT",
-    icon: IconEarNoseThroat,
-  },
-  {
-    label: "Ophthalmology",
-    icon: IconOphthalmology,
-  },
-  {
-    label: "Dermatology",
-    icon: IconChaplaincy,
-  },
-  {
-    label: "Other",
-    icon: IconHematology,
-  },
-];
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function DashboardPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleHospitalClick = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    const newUrl = `/dashboard/hospitals${
+      params.toString() ? `?${params.toString()}` : ""
+    }`;
+    router.push(newUrl);
+  };
+
   return (
     <VStack
       padding={"24px"}
@@ -87,6 +38,7 @@ export default function DashboardPage() {
           height={"unset"}
           alignItems={"start"}
           className="bg-white border border-[#E1E1E1]"
+          onClick={handleHospitalClick}
           render={<Button />}
         >
           <Flex flexDirection={"column"} alignItems={"start"}>
