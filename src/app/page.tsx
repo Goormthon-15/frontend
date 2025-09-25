@@ -1,3 +1,5 @@
+import { VStack } from "@vapor-ui/core";
+
 export default function Home() {
-  return <V>ㄷㄷ 홈임 </V>;
+  return <VStack>ㄷㄷ 홈임 </VStack>;
 }

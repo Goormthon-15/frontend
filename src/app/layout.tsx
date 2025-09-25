@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import "@/styles/global.css";
 import React from "react";
 import { LocaleProvider } from "@/app/_components/provider/LocaleProvider";
 import { cookies } from "next/headers";
 import { Locale } from "@/libs/i18n";
 import loadTranslation from "@/libs/i18n/utils/loadTranslation";
+import "@/styles/global.css";
+import {
+  getServerSideCookie,
+  setServerSideCookie,
+} from "@/utils/server/cookies";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,11 +20,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const serverLocale = ((await cookies()).get("lng")?.value || "en") as Locale;
+  const serverLocale = ((await getServerSideCookie("lng")) || "en") as Locale;
+
   const localeJson = await loadTranslation(serverLocale);
 
   return (
     <html lang="en">
+      <head>
+        <script
+          type="text/javascript"
+          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.NEXT_PUBLIC_NAVER_MAPS_CLIENT_ID}`}
+          async
+        />
+      </head>
       <body>
         <LocaleProvider value={{ localeJson, serverLocale }}>
           {children}

@@ -1,0 +1,12 @@
+{
+  "folder-color.pathColors": [
+    {
+      "folderPath": "frontend\\src\\app\\test\\",
+      "color": "foldercolorizer.color_00ccff"
+    },
+    {
+      "folderPath": "frontend\\src\\app\\",
+      "color": "foldercolorizer.color_00cc99"
+    }
+  ]
+}

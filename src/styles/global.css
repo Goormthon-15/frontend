@@ -1,10 +1,33 @@
 @import url("./reset.css");
 
+/** Pretendard 폰트 정의 */
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/PretendardVariable.woff2") format("woff2-variations");
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}
+
+/** tailwindcss 설정 */
+@layer tw-theme, theme, reset, components, utilities, tw-utilities;
+
+@import "tailwindcss/theme.css" layer(tw-theme);
+@import "tailwindcss/utilities.css" layer(tw-utilities);
+@import "@vapor-ui/core/styles.css";
+@import "@vapor-ui/core/tailwind.css";
+
 * {
   box-sizing: border-box;
-  font-family: "Pretendard", sans-serif;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    sans-serif;
 }
 
 html {
-  font-family: "Pretendard", sans-serif;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    sans-serif;
 }
