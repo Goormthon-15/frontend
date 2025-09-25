@@ -1,9 +1,10 @@
 import Translator from "@/app/test/_components/Translator";
+import NaverMap from "./_components/NaverMap";
 
 export default function Test() {
   return (
     <div>
-      <h1>Test Page !!</h1>
+      <NaverMap />
 
       <Translator />
     </div>

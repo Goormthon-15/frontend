@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@/styles/global.css"
+import "@/styles/global.css";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -14,6 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="text/javascript"
+          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.NEXT_PUBLIC_NAVER_MAPS_CLIENT_ID}`}
+          async
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
