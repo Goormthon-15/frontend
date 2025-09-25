@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
   // Vapor UI 번들 최적화 설정
   experimental: {
     optimizePackageImports: ["@vapor-ui/core", "@vapor-ui/icons"],
+
+    // TurboPack svgr 설정
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
   },
 
   /** svgr 관련 설정 */

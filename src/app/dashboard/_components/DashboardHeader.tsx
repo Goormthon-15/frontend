@@ -1,5 +1,6 @@
 "use client";
 
+import { MOBILE_FRAME_HEIGHT } from "@/app/_constants/index.constants";
 import {
   Button,
   HStack,
@@ -15,7 +16,7 @@ import {
   ChevronLeftOutlineIcon,
 } from "@vapor-ui/icons";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const JEJU_LOCATIONS = {
   DEFAULT: "내 주변",
@@ -149,9 +150,11 @@ function LocationOverlay({
     <Dialog.Root
       open={isOpen}
       onOpenChange={onClose}
-      closeOnClickOverlay={true}
+      closeOnClickOverlay={false}
     >
-      <Dialog.Content className="max-w-full w-full h-full m-0 rounded-none bg-white">
+      <Dialog.Content
+        className={`w-[400px] h-[720px] m-0 rounded-none bg-white shadow-none`}
+      >
         <Dialog.Header className="flex items-center justify-between px-6! py-2! relative">
           <IconButton
             variant="ghost"

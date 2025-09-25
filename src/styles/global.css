@@ -41,3 +41,22 @@ body {
   --vapor-color-foreground-foreground-200: #00494a;
   --vapor-color-border-primay: #106c6c;
 }
+
+/* 다이어로그 오버레이 색상 사라지게 했읍니다 */
+.dialog-dt887t0 {
+  background-color: transparent;
+}
+
+.vertical-custom-scrollbar {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+  }
+}
