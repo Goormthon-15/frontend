@@ -16,8 +16,10 @@ import {
   BookmarkOutlineIcon,
   CopyOutlineIcon,
 } from "@vapor-ui/icons";
-import { useMemo } from "react";
 import { jejuHospitals, seogwipoHospitals } from "../../_mock/kor_mock";
+import { useMemo, useState } from "react";
+import ChatContentsStackPage from "@/app/_components/mock/ChatContentsStackPage";
+import BookRequestStackPage from "@/app/_components/mock/BookRequestStackPage";
 
 const DEFAULTENT_LABELS = {
   GENERAL: "일반",
@@ -37,6 +39,9 @@ interface DetailContentProps {
 }
 
 export function DetailContent({ hospitalId }: DetailContentProps) {
+  const [isBookRequestStackPageOpen, setIsBookRequestStackPageOpen] =
+    useState(false);
+  const [isChatContentsStackPage, setIsChatContentsStackPage] = useState(false);
   const hospital = useMemo(() => {
     const id = parseInt(hospitalId);
 
@@ -196,9 +201,24 @@ export function DetailContent({ hospitalId }: DetailContentProps) {
           </Card.Body>
         </Card.Root>
 
-        <Button size="xl" stretch className="sticky bottom-[36px]">
+        <Button
+          size="xl"
+          stretch
+          className="sticky bottom-[36px]"
+          onClick={() => setIsBookRequestStackPageOpen(true)}
+        >
           Book Appointment
         </Button>
+
+        <BookRequestStackPage
+          isOpen={isBookRequestStackPageOpen}
+          onClose={() => setIsBookRequestStackPageOpen(false)}
+          openNext={() => setIsChatContentsStackPage(true)}
+        />
+        <ChatContentsStackPage
+          isOpen={isChatContentsStackPage}
+          onClose={() => setIsChatContentsStackPage(false)}
+        />
       </VStack>
     </VStack>
   );
