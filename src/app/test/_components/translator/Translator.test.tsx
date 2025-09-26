@@ -9,8 +9,8 @@ export default function Translator() {
   return (
     <div>
       <h1>Translator</h1>
-      <h1>{t("Hello")}</h1>
-      <h1>{t("World")}</h1>
+      <h1>{t("First Name")}</h1>
+      <h1>{t("Last Name")}</h1>
       <TranslatorSelectBox />
     </div>
   );
