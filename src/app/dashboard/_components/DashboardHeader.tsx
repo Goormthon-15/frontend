@@ -18,6 +18,7 @@ import {
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { jejuHospitals, seogwipoHospitals } from "../hospitals/_mock/kor_mock";
+import MyPageStackPage from "@/app/_components/mock/MyPageStackPage";
 
 const JEJU_LOCATIONS = {
   DEFAULT: "내 주변",
@@ -64,6 +65,8 @@ export function DashboardHeader() {
 
   const [location, setLocation] = useState(JEJU_LOCATIONS.DEFAULT);
   const [isLocationOverlayOpen, setIsLocationOverlayOpen] = useState(false);
+
+  const [isMyPageStackPageOpen, setIsMyPageStackPageOpen] = useState(false);
 
   // 병원 상세 페이지인지 확인하는 함수
   const isHospitalDetailPage = (path: string) => {
@@ -166,7 +169,7 @@ export function DashboardHeader() {
               size="lg"
               variant="fill"
               aria-label="home"
-              onClick={() => router.push("/dashboard")}
+              onClick={() => setIsMyPageStackPageOpen(true)}
               className="text-white rounded-full flex items-center justify-center"
             >
               <Text
@@ -196,6 +199,10 @@ export function DashboardHeader() {
         onLocationSelect={handleLocationChange}
         currentLocation={location}
       />
+      <MyPageStackPage
+        isOpen={isMyPageStackPageOpen}
+        onClose={() => setIsMyPageStackPageOpen(false)}
+      />
     </>
   );
 }
@@ -220,7 +227,7 @@ function LocationOverlay({
       onOpenChange={onClose}
       closeOnClickOverlay={false}
     >
-      <Dialog.Content className={`w-[430px]! h-[932px]! m-0 rounded-none`}>
+      <Dialog.Content className={`w-[432px]! h-[932px]! m-0 rounded-none`}>
         <Dialog.Header className="flex items-center justify-between min-h-[64px] px-4 py-3 relative bg-gray-50 border-b border-[#E1E1E1]">
           <IconButton
             variant="ghost"

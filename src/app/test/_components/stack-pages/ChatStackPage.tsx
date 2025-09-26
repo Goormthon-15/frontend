@@ -1,15 +1,12 @@
-import { Dialog, HStack, IconButton, Text, VStack } from "@vapor-ui/core";
+import { Dialog, IconButton, Text, VStack } from "@vapor-ui/core";
 import { ChevronLeftOutlineIcon } from "@vapor-ui/icons";
 
-interface ExampleStackPageProps {
+interface ChatStackPageProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function ExampleStackPage({
-  isOpen,
-  onClose,
-}: ExampleStackPageProps) {
+export default function ChatStackPage({ isOpen, onClose }: ChatStackPageProps) {
   return (
     <Dialog.Root
       open={isOpen}
@@ -37,12 +34,7 @@ export default function ExampleStackPage({
           </Text>
         </Dialog.Header>
 
-        {/* 바디 - 지역 선택 내용 */}
-        <Dialog.Body className="grow p-4 overflow-y-auto bg-[#f7f7f7]">
-          <VStack alignItems="stretch" className="h-[5000px]">
-            내용입니다
-          </VStack>
-        </Dialog.Body>
+        <VStack className="flex-1"></VStack>
       </Dialog.Content>
     </Dialog.Root>
   );
