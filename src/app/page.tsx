@@ -18,10 +18,9 @@ import {
   VStack,
 } from "@vapor-ui/core";
 import { CheckCircleOutlineIcon } from "@vapor-ui/icons";
-import axios from "axios";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useTranslation } from "./_components/provider/LocaleProvider";
 
 export default function Home() {
   const LANGUAGE_OPTIONS: any = {
@@ -32,6 +31,7 @@ export default function Home() {
   };
 
   const router = useRouter();
+  const { t } = useTranslation();
 
   // 날짜 선택 상태 관리
   const [selectedYear, setSelectedYear] = useState<string>("");
@@ -188,7 +188,7 @@ export default function Home() {
                   <Field.Label
                     className={"font-medium text-[14px] text-[#4C4C4C]"}
                   >
-                    First Name <span className="text-[#AB3406]">*</span>
+                    {t("First Name")} <span className="text-[#AB3406]">*</span>
                   </Field.Label>
                   <TextInput
                     type="text"
@@ -201,7 +201,7 @@ export default function Home() {
                   <Field.Label
                     className={"font-medium text-[14px] text-[#4C4C4C]"}
                   >
-                    Last Name <span className="text-[#AB3406]">*</span>
+                    {t("Last Name")} <span className="text-[#AB3406]">*</span>
                   </Field.Label>
                   <TextInput
                     type="text"
@@ -214,7 +214,7 @@ export default function Home() {
               {/* dateSelects */}
               <VStack gap={"$100"} width={"100%"}>
                 <p className="text-[14px] font-medium text-[#4C4C4C]">
-                  Date of Birth <span className="text-[#AB3406]">*</span>
+                  {t("Date of Birth")} <span className="text-[#AB3406]">*</span>
                 </p>
 
                 {/* Date Selects */}
@@ -223,11 +223,11 @@ export default function Home() {
                   <Select.Root
                     value={selectedYear}
                     onValueChange={(value) => setSelectedYear(String(value))}
-                    placeholder="Year"
+                    placeholder={t("Year")}
                   >
                     <Select.Trigger className="h-[40px] w-full">
                       {!selectedYear && (
-                        <Select.Placeholder>Year</Select.Placeholder>
+                        <Select.Placeholder>{t("Year")}</Select.Placeholder>
                       )}
                       <Select.Value />
 
@@ -250,11 +250,11 @@ export default function Home() {
                   <Select.Root
                     value={selectedMonth}
                     onValueChange={(value) => setSelectedMonth(String(value))}
-                    placeholder="Month"
+                    placeholder={t("Month")}
                   >
                     <Select.Trigger className="h-[40px] w-full">
                       {!selectedMonth && (
-                        <Select.Placeholder>Month</Select.Placeholder>
+                        <Select.Placeholder>{t("Month")}</Select.Placeholder>
                       )}
                       <Select.Value />
 
@@ -280,11 +280,11 @@ export default function Home() {
                   <Select.Root
                     value={selectedDay}
                     onValueChange={(value) => setSelectedDay(String(value))}
-                    placeholder="Day"
+                    placeholder={t("Day")}
                   >
                     <Select.Trigger className="h-[40px] w-full">
                       {!selectedDay && (
-                        <Select.Placeholder>Date</Select.Placeholder>
+                        <Select.Placeholder>{t("Date")}</Select.Placeholder>
                       )}
                       <Select.Value />
 
@@ -307,7 +307,7 @@ export default function Home() {
 
               <VStack gap={"$100"} width={"100%"}>
                 <p className="text-[14px] font-medium text-[#4C4C4C]">
-                  Gender <span className="text-[#AB3406]">*</span>
+                  {t("Gender")} <span className="text-[#AB3406]">*</span>
                 </p>
 
                 <HStack gap={"$100"} width={"100%"} height={"$500"}>
@@ -321,7 +321,7 @@ export default function Home() {
                     color="primary"
                     onClick={() => setSelectedGender("FEMALE")}
                   >
-                    <Box color={"$secondary-100"}>Female</Box>
+                    <Box color={"$secondary-100"}>{t("Female")}</Box>
                     {selectedGender === "FEMALE" && (
                       <CheckCircleOutlineIcon color="#106c6c" />
                     )}
@@ -337,7 +337,7 @@ export default function Home() {
                     color="primary"
                     onClick={() => setSelectedGender("MALE")}
                   >
-                    <Box color={"$secondary-100"}>Male</Box>
+                    <Box color={"$secondary-100"}>{t("Male")}</Box>
                     {selectedGender === "MALE" && (
                       <CheckCircleOutlineIcon color="#106c6c" />
                     )}
@@ -347,7 +347,7 @@ export default function Home() {
 
               <VStack gap={"$100"} width={"100%"}>
                 <p className="text-[14px] font-medium text-[#4C4C4C]">
-                  Language <span className="text-[#AB3406]">*</span>
+                  {t("Language")} <span className="text-[#AB3406]">*</span>
                 </p>
                 <TranslatorSelectBox theme="select" />
               </VStack>
@@ -361,7 +361,7 @@ export default function Home() {
                 disabled={!isValidMemo}
                 onClick={createAccount}
               >
-                Create Account
+                {t("Create Account")}
               </Button>
             </Box>
           </VStack>

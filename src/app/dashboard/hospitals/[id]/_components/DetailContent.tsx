@@ -17,7 +17,7 @@ import {
   CopyOutlineIcon,
 } from "@vapor-ui/icons";
 import { useMemo } from "react";
-import { jejuHospitals } from "../../_mock/kor_mock";
+import { jejuHospitals, seogwipoHospitals } from "../../_mock/kor_mock";
 
 const DEFAULTENT_LABELS = {
   GENERAL: "일반",
@@ -44,7 +44,9 @@ export function DetailContent({ hospitalId }: DetailContentProps) {
       return null;
     }
 
-    return jejuHospitals.find((hospital) => hospital.id === id);
+    return [...jejuHospitals, ...seogwipoHospitals].find(
+      (hospital) => hospital.id === id
+    );
   }, [hospitalId]);
 
   if (!hospital) {

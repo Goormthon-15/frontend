@@ -56,48 +56,78 @@ export function HospitalContent() {
     }
   };
 
-  // 필터링된 데이터를 계산하는 로직 추가
+  // 필터링된 데이터를 계산하는 로직 수정
   const filteredData = useMemo(() => {
+    console.log(
+      "🔍 필터링 시작 - searchParams:",
+      Object.fromEntries(searchParams.entries())
+    );
+
     let filtered = [...jejuHospitals, ...seogwipoHospitals];
+    console.log("📊 초기 데이터 개수:", filtered.length);
 
     // location 파라미터 필터링
     const location = searchParams.get("location");
     if (location) {
       const decodedLocation = decodeURIComponent(location);
+      console.log("📍 위치 필터링:", decodedLocation);
+
       if (decodedLocation.includes("제주시")) {
         filtered = filtered.filter(
           (hospital) => hospital.address2 === "제주시"
         );
+        console.log("📍 제주시 필터링 후:", filtered.length);
       } else if (decodedLocation.includes("서귀포")) {
         filtered = filtered.filter(
           (hospital) => hospital.address2 === "서귀포시"
         );
+        console.log("📍 서귀포시 필터링 후:", filtered.length);
       }
     }
 
     // options 파라미터 필터링
     const options = searchParams.get("options");
     if (options) {
-      const optionList = options.split(",");
+      const optionList = options.split(",").filter(Boolean);
+      console.log("⚙️ 옵션 필터링:", optionList);
 
       // newopen: 현재 진료 중인 병원만
       if (optionList.includes("newopen")) {
+        const beforeCount = filtered.length;
         filtered = filtered.filter(
           (hospital) => hospital.isCurrentlyOpen === true
+        );
+        console.log(
+          `🟢 현재 진료 중 필터링: ${beforeCount} → ${filtered.length}`
         );
       }
 
       // popular: 인기 병원만
       if (optionList.includes("popular")) {
+        const beforeCount = filtered.length;
         filtered = filtered.filter((hospital) => hospital.isPopular === true);
+        console.log(`⭐ 인기 병원 필터링: ${beforeCount} → ${filtered.length}`);
       }
 
       // favorite: 즐겨찾기 병원만
       if (optionList.includes("favorite")) {
+        const beforeCount = filtered.length;
         filtered = filtered.filter((hospital) => hospital.isFavorite === true);
+        console.log(`💖 즐겨찾기 필터링: ${beforeCount} → ${filtered.length}`);
+      }
+
+      // livechat: 현재는 임시로 인기 병원으로 처리 (향후 데이터 필드 추가 시 수정)
+      if (optionList.includes("livechat")) {
+        const beforeCount = filtered.length;
+        // 임시: 인기 병원을 라이브 채팅 가능 병원으로 간주
+        filtered = filtered.filter((hospital) => hospital.isPopular === true);
+        console.log(
+          `💬 라이브채팅 필터링 (임시): ${beforeCount} → ${filtered.length}`
+        );
       }
     }
 
+    console.log("✅ 최종 필터링 결과:", filtered.length);
     return filtered;
   }, [searchParams]);
 

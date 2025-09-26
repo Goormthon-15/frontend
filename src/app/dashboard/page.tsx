@@ -3,14 +3,20 @@
 import { Box, Flex, HStack, Text, VStack, Button } from "@vapor-ui/core";
 import IconHospital from "@/assets/svgs/icon-hospital.svg";
 import IconAmbulatoryClinic from "@/assets/svgs/icon-ambulatory-clinic.svg";
-import { DotIcon } from "@vapor-ui/icons";
+import { DotIcon, ForwardPageOutlineIcon } from "@vapor-ui/icons";
 import { DashboardGrid } from "./_components/DashboardGrid";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "@/utils/index.utils";
+import {
+  useLocaleContext,
+  useTranslation,
+} from "../_components/provider/LocaleProvider";
 
 export default function DashboardPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const { t } = useTranslation();
 
   const handleHospitalClick = () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -43,9 +49,37 @@ export default function DashboardPage() {
           render={<Button />}
         >
           <Flex flexDirection={"column"} alignItems={"start"}>
-            <Text typography="heading3">Locate</Text>
-            <Text typography="heading3">Hospitals</Text>
-            <Text typography="heading3">around you</Text>
+            {(() => {
+              const text = t("Locate Hospitals around you");
+              const { serverLocale } = useLocaleContext();
+
+              // 언어별로 텍스트 분할 규칙 정의
+              switch (serverLocale) {
+                case "en":
+                  // 영어: "Locate", "Hospitals", "around you"
+                  return ["Locate", "Hospitals", "around you"];
+
+                case "ko":
+                  // 한국어: "내 주변", "병원", "찾기"
+                  return ["내 주변", "병원", "찾기"];
+
+                case "zh-CHS":
+                  // 중국어 간체: "查找", "你附近的", "医院"
+                  return ["查找", "你附근的", "医院"];
+
+                case "zh-CHT":
+                  // 중국어 번체: "搜尋", "你附近的", "醫院"
+                  return ["搜尋", "你附근的", "醫院"];
+
+                default:
+                  // 기본값: 공백으로 분할
+                  return text.split(" ");
+              }
+            })().map((text, index) => (
+              <Text key={index} typography="heading3">
+                {text}
+              </Text>
+            ))}
           </Flex>
 
           <IconHospital size={"98px"} />
@@ -64,9 +98,37 @@ export default function DashboardPage() {
           render={<Button />}
         >
           <Flex flexDirection={"column"} alignItems={"end"}>
-            <Text typography="heading3">Book your</Text>
-            <Text typography="heading3">Regular</Text>
-            <Text typography="heading3">Hospital</Text>
+            {(() => {
+              const text = t("Book your Regular Hospital");
+              const { serverLocale } = useLocaleContext();
+
+              // 언어별로 텍스트 분할 규칙 정의
+              switch (serverLocale) {
+                case "en":
+                  // 영어: "Book your", "Regular", "Hospital"
+                  return ["Book your", "Regular", "Hospital"];
+
+                case "ko":
+                  // 한국어: "단골 병원 예약" → "단골", "병원", "예약"
+                  return ["단골", "병원", "예약"];
+
+                case "zh-CHS":
+                  // 중국어 간체: "预约常用医院" → "预约", "常用", "医院"
+                  return ["预约", "常用", "医院"];
+
+                case "zh-CHT":
+                  // 중국어 번체: "預約常用醫院" → "預約", "常用", "醫院"
+                  return ["預約", "常用", "醫院"];
+
+                default:
+                  // 기본값: 공백으로 분할
+                  return text.split(" ");
+              }
+            })().map((text, index) => (
+              <Text key={index} typography="heading3">
+                {text}
+              </Text>
+            ))}
           </Flex>
 
           <IconAmbulatoryClinic size={"98px"} />
@@ -93,6 +155,14 @@ export default function DashboardPage() {
       </VStack>
 
       <DashboardGrid />
+
+      {/* <Button
+        size="xl"
+        className="fixed bottom-[36px] right-1/2 translate-x-5/6"
+      >
+        {t("Book Appointment")}
+        <ForwardPageOutlineIcon />
+      </Button> */}
 
       {process.env.NODE_ENV === "development" && (
         <div className="fixed right-[10px] top-[40px] bg-black text-white p-4! rounded-md cursor-pointer">
