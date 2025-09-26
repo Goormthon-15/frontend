@@ -18,53 +18,95 @@ import {
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { jejuHospitals, seogwipoHospitals } from "../hospitals/_mock/kor_mock";
+import { KeyOfTranslation } from "@/libs/i18n/utils/loadTranslation";
+import { useTranslation } from "../../_components/provider/LocaleProvider";
 import MyPageStackPage from "@/app/_components/mock/MyPageStackPage";
 
 const JEJU_LOCATIONS = {
-  DEFAULT: "내 주변",
+  DEFAULT: "Around Me" as KeyOfTranslation,
 
   제주시: {
-    제주시_전체: "제주시 전체",
-    구제주: "구제주",
-    신제주: "신제주",
-    애월: "애월",
-    한림: "한림",
-    한경: "한경",
-    조천: "조천",
-    구좌: "구좌",
+    제주시_전체: "Jeju City All" as KeyOfTranslation, // 고유한 번역 키
+    구제주: "Gu-Jeju" as KeyOfTranslation,
+    신제주: "Shin-Jeju" as KeyOfTranslation,
+    애월: "Aewol" as KeyOfTranslation,
+    한림: "Hallim" as KeyOfTranslation,
+    한경: "Hangyeong" as KeyOfTranslation,
+    조천: "Jocheon" as KeyOfTranslation,
+    구좌: "Gujwa" as KeyOfTranslation,
   },
 
   서귀포시: {
-    서귀포_전체: "서귀포 전체",
-    서귀포_시내: "서귀포 시내",
-    대정: "대정",
-    안덕: "안덕",
-    중문: "중문",
-    남원: "남원",
-    표선: "표선",
-    성산: "성산",
+    서귀포_전체: "Seogwipo City All" as KeyOfTranslation, // 고유한 번역 키
+    서귀포_시내: "Seogwipo Downtown" as KeyOfTranslation,
+    대정: "Daejeong" as KeyOfTranslation,
+    안덕: "Andeok" as KeyOfTranslation,
+    중문: "Jungmun" as KeyOfTranslation,
+    남원: "Namwon" as KeyOfTranslation,
+    표선: "Pyoseon" as KeyOfTranslation,
+    성산: "Seongsan" as KeyOfTranslation,
   },
 };
 
 // 모든 location 값들을 평탄화하여 유효성 검사에 사용
-const getAllLocationValues = () => {
-  const values = [JEJU_LOCATIONS.DEFAULT];
+const getAllLocationKeys = () => {
+  const keys = [JEJU_LOCATIONS.DEFAULT];
 
-  Object.values(JEJU_LOCATIONS.제주시).forEach((city) => values.push(city));
-  Object.values(JEJU_LOCATIONS.서귀포시).forEach((city) => values.push(city));
+  // 실제 키값들을 수집 (Object.keys 사용)
+  Object.keys(JEJU_LOCATIONS.제주시).forEach((key) =>
+    keys.push(key as KeyOfTranslation)
+  );
+  Object.keys(JEJU_LOCATIONS.서귀포시).forEach((key) =>
+    keys.push(key as KeyOfTranslation)
+  );
 
-  return values;
+  return keys;
 };
 
-const VALID_LOCATIONS = getAllLocationValues();
+const VALID_LOCATIONS = getAllLocationKeys();
+
+// 키값에서 번역 키를 찾는 헬퍼 함수 추가
+const getTranslationKeyFromLocationKey = (
+  locationKey: string
+): KeyOfTranslation => {
+  if (locationKey === JEJU_LOCATIONS.DEFAULT) {
+    return JEJU_LOCATIONS.DEFAULT;
+  }
+
+  // 제주시 키들 확인
+  const jejuKey = Object.entries(JEJU_LOCATIONS.제주시).find(
+    ([key]) => key === locationKey
+  );
+  if (jejuKey) {
+    return jejuKey[1];
+  }
+
+  // 서귀포시 키들 확인
+  const seogwipoKey = Object.entries(JEJU_LOCATIONS.서귀포시).find(
+    ([key]) => key === locationKey
+  );
+  if (seogwipoKey) {
+    return seogwipoKey[1];
+  }
+
+  // 기본값
+  return JEJU_LOCATIONS.DEFAULT;
+};
 
 export function DashboardHeader() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const [location, setLocation] = useState(JEJU_LOCATIONS.DEFAULT);
   const [isLocationOverlayOpen, setIsLocationOverlayOpen] = useState(false);
+
+  // 지역명을 언어별로 표시하는 함수 (수정됨)
+  const getLocationDisplay = (locationKey: string) => {
+    const translationKey = getTranslationKeyFromLocationKey(locationKey);
+    return t(translationKey);
+  };
 
   const [isMyPageStackPageOpen, setIsMyPageStackPageOpen] = useState(false);
 
@@ -87,17 +129,28 @@ export function DashboardHeader() {
     return allHospitals.find((hospital) => hospital.id === id) || null;
   }, [pathname]);
 
-  // URL에서 location 파라미터 읽기 및 유효성 검사
+  // URL에서 location 파라미터 읽기 및 유효성 검사 (수정됨)
   useEffect(() => {
     const urlLocation = searchParams.get("location");
 
-    if (urlLocation && VALID_LOCATIONS.includes(urlLocation)) {
-      setLocation(urlLocation);
+    console.log("🔍 URL에서 받은 location:", urlLocation);
+    console.log("✅ 유효한 location 키들:", VALID_LOCATIONS);
+
+    if (
+      urlLocation &&
+      VALID_LOCATIONS.includes(urlLocation as KeyOfTranslation)
+    ) {
+      setLocation(urlLocation as KeyOfTranslation);
+      console.log("✅ 유효한 location 설정:", urlLocation);
     } else {
       setLocation(JEJU_LOCATIONS.DEFAULT);
+      console.log("❌ 무효한 location, 기본값 설정:", JEJU_LOCATIONS.DEFAULT);
 
       // URL에 잘못된 location이 있거나 없는 경우 기본값으로 업데이트
-      if (urlLocation && !VALID_LOCATIONS.includes(urlLocation)) {
+      if (
+        urlLocation &&
+        !VALID_LOCATIONS.includes(urlLocation as KeyOfTranslation)
+      ) {
         const params = new URLSearchParams(searchParams.toString());
         params.set("location", JEJU_LOCATIONS.DEFAULT);
         router.replace(`?${params.toString()}`);
@@ -105,17 +158,21 @@ export function DashboardHeader() {
     }
   }, [searchParams, router]);
 
-  // location 변경 시 URL 업데이트
-  const handleLocationChange = (newLocation: string) => {
-    setLocation(newLocation);
+  // location 변경 시 URL 업데이트 (수정됨)
+  const handleLocationChange = (newLocationKey: string) => {
+    console.log("🔄 지역 변경 요청:", newLocationKey);
+    setLocation(newLocationKey as KeyOfTranslation);
 
     const params = new URLSearchParams(searchParams.toString());
-    params.set("location", newLocation);
+    params.set("location", newLocationKey);
     router.push(`?${params.toString()}`);
+
+    console.log("✅ URL 업데이트 완료:", `?${params.toString()}`);
 
     // overlay 닫기
     setIsLocationOverlayOpen(false);
   };
+
   return (
     <>
       <HStack
@@ -145,7 +202,7 @@ export function DashboardHeader() {
             className={"absolute left-1/2 -translate-x-1/2 text-black"}
           >
             <FoldOutlineIcon size={"24"} />
-            <Text typography="heading6">{location}</Text>
+            <Text typography="heading6">{getLocationDisplay(location)}</Text>
             <ChevronDownOutlineIcon size={"16"} />
           </Button>
         )}
@@ -221,6 +278,8 @@ function LocationOverlay({
   onLocationSelect,
   currentLocation,
 }: LocationOverlayProps) {
+  const { t } = useTranslation();
+
   return (
     <Dialog.Root
       open={isOpen}
@@ -242,7 +301,7 @@ function LocationOverlay({
             typography="heading6"
             className="absolute left-1/2 -translate-x-1/2"
           >
-            Change Address
+            {t("Change Address")}
           </Text>
         </Dialog.Header>
 
@@ -250,36 +309,43 @@ function LocationOverlay({
         <Dialog.Body className="flex-1 p-6 overflow-y-auto bg-gray-50 max-h-screen! grow!">
           <VStack>
             {/* 현재 위치 기반 섹션 */}
-            <LocationSection title="Current Location">
+            <LocationSection title={t("Current Location")}>
               <LocationButton
-                location={JEJU_LOCATIONS.DEFAULT}
+                locationKey={JEJU_LOCATIONS.DEFAULT}
+                translationKey={JEJU_LOCATIONS.DEFAULT}
                 isSelected={currentLocation === JEJU_LOCATIONS.DEFAULT}
                 onSelect={onLocationSelect}
               />
             </LocationSection>
 
             {/* 제주시 섹션 */}
-            <LocationSection title="제주시">
-              {Object.values(JEJU_LOCATIONS.제주시).map((city) => (
-                <LocationButton
-                  key={city}
-                  location={city}
-                  isSelected={currentLocation === city}
-                  onSelect={onLocationSelect}
-                />
-              ))}
+            <LocationSection title={t("Jeju City")}>
+              {Object.entries(JEJU_LOCATIONS.제주시).map(
+                ([key, translationKey]) => (
+                  <LocationButton
+                    key={key}
+                    locationKey={key as KeyOfTranslation}
+                    translationKey={translationKey}
+                    isSelected={currentLocation === key}
+                    onSelect={onLocationSelect}
+                  />
+                )
+              )}
             </LocationSection>
 
             {/* 서귀포시 섹션 */}
-            <LocationSection title="서귀포시">
-              {Object.values(JEJU_LOCATIONS.서귀포시).map((city) => (
-                <LocationButton
-                  key={city}
-                  location={city}
-                  isSelected={currentLocation === city}
-                  onSelect={onLocationSelect}
-                />
-              ))}
+            <LocationSection title={t("Seogwipo City")}>
+              {Object.entries(JEJU_LOCATIONS.서귀포시).map(
+                ([key, translationKey]) => (
+                  <LocationButton
+                    key={key}
+                    locationKey={key as KeyOfTranslation}
+                    translationKey={translationKey}
+                    isSelected={currentLocation === key}
+                    onSelect={onLocationSelect}
+                  />
+                )
+              )}
             </LocationSection>
           </VStack>
         </Dialog.Body>
@@ -304,25 +370,31 @@ function LocationSection({
 }
 
 // 지역 버튼 컴포넌트
+// LocationButton 수정
 interface LocationButtonProps {
-  location: string;
+  locationKey: string;
+  translationKey: KeyOfTranslation;
   isSelected: boolean;
   onSelect: (location: string) => void;
 }
 
 function LocationButton({
-  location,
+  locationKey,
+  translationKey,
   isSelected,
   onSelect,
 }: LocationButtonProps) {
+  const { t } = useTranslation();
+
   return (
     <Button
       size="lg"
       variant={"outline"}
-      onClick={() => onSelect(location)}
+      onClick={() => onSelect(locationKey)} // 실제 키값 전달
       className={!isSelected ? "bg-white border-[#E1E1E1]" : ""}
     >
-      <Text typography="subtitle1">{location}</Text>
+      <Text typography="subtitle1">{t(translationKey)}</Text>{" "}
+      {/* 번역키로 렌더링 */}
     </Button>
   );
 }

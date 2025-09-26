@@ -16,8 +16,8 @@ import {
   BookmarkOutlineIcon,
   CopyOutlineIcon,
 } from "@vapor-ui/icons";
+import { jejuHospitals, seogwipoHospitals } from "../../_mock/kor_mock";
 import { useMemo, useState } from "react";
-import { jejuHospitals } from "../../_mock/kor_mock";
 import ChatContentsStackPage from "@/app/_components/mock/ChatContentsStackPage";
 import BookRequestStackPage from "@/app/_components/mock/BookRequestStackPage";
 
@@ -49,7 +49,9 @@ export function DetailContent({ hospitalId }: DetailContentProps) {
       return null;
     }
 
-    return jejuHospitals.find((hospital) => hospital.id === id);
+    return [...jejuHospitals, ...seogwipoHospitals].find(
+      (hospital) => hospital.id === id
+    );
   }, [hospitalId]);
 
   if (!hospital) {

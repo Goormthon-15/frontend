@@ -1,52 +1,39 @@
+import { useTranslation } from "@/app/_components/provider/LocaleProvider";
+import { KeyOfTranslation } from "@/libs/i18n/utils/loadTranslation";
 import { Button, HStack, Text } from "@vapor-ui/core";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
 
+// 진료과 옵션들 - 모든 키가 번역 파일에 존재함
 const DEPARTMENTS_OPTIONS = {
-  all: "all",
-  internal: "internal",
-  surgery: "surgery",
-  pediatrics: "pediatrics",
-  orthopedics: "orthopedics",
-  obstetrics: "obstetrics",
-  ent: "ent",
-  ophthalmology: "ophthalmology",
-  dermatology: "dermatology",
-  other: "other",
-} as const;
-type DepartmentOptions =
-  (typeof DEPARTMENTS_OPTIONS)[keyof typeof DEPARTMENTS_OPTIONS];
-const DEPARTMENTS_OPTIONS_LABELS: Record<DepartmentOptions, string> = {
-  all: "전체",
-  internal: "내과",
-  surgery: "외과",
-  pediatrics: "소아청소년과",
-  orthopedics: "정형외과",
-  obstetrics: "산부인과",
-  ent: "이비인후과",
-  ophthalmology: "안과",
-  dermatology: "피부과",
-  other: "기타",
+  all: "All" as KeyOfTranslation,
+  internal: "Internal" as KeyOfTranslation,
+  surgery: "Surgery" as KeyOfTranslation,
+  pediatrics: "Pediatrics" as KeyOfTranslation,
+  orthopedics: "Orthopedics" as KeyOfTranslation,
+  obstetrics: "OB/GYN" as KeyOfTranslation, // 기존 번역 키 재사용
+  ent: "ENT" as KeyOfTranslation,
+  ophthalmology: "Ophthalmology" as KeyOfTranslation,
+  dermatology: "Dermatology" as KeyOfTranslation,
+  other: "Other" as KeyOfTranslation,
 } as const;
 
+type DepartmentOptions = keyof typeof DEPARTMENTS_OPTIONS;
+
+// 기본 필터 옵션들
 const DEFAULT_OPTIONS = {
-  newopen: "newopen",
-  livechat: "livechat",
-  popular: "popular",
-  favorite: "favorite",
-} as const;
-type DefaultOptions = (typeof DEFAULT_OPTIONS)[keyof typeof DEFAULT_OPTIONS];
-const DEFAULT_OPTIONS_LABELS: Record<DefaultOptions, string> = {
-  newopen: "진료 중",
-  livechat: "채팅 가능",
-  popular: "인기 병원",
-  favorite: "즐겨찾기",
-} as const;
+  newopen: "Now Open" as KeyOfTranslation, // 번역 키
+  livechat: "Live Chat Available" as KeyOfTranslation,
+  popular: "Popular Hospital" as KeyOfTranslation,
+  favorite: "Favorites" as KeyOfTranslation, // 번역 키
+};
+
+type DefaultOptions = keyof typeof DEFAULT_OPTIONS;
 
 export function HospitalFilter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const handleDefaultClick = (option: DefaultOptions) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -90,16 +77,16 @@ export function HospitalFilter() {
       overflow={"scroll"}
     >
       <HStack gap={"$200"} overflow={"scroll"} width={"80%"}>
-        {Object.values(DEFAULT_OPTIONS).map((option) => {
-          const isSelected = isOptionSelected(option);
+        {Object.entries(DEFAULT_OPTIONS).map(([key, translationKey]) => {
+          const isSelected = isOptionSelected(key as DefaultOptions);
           return (
             <Button
-              key={option}
+              key={key}
               variant={isSelected ? "fill" : "outline"}
               color={isSelected ? "primary" : "secondary"}
               size="lg"
               className="rounded-[4px]"
-              onClick={() => handleDefaultClick(option)}
+              onClick={() => handleDefaultClick(key as DefaultOptions)}
             >
               <Text
                 typography="subtitle1"
@@ -109,7 +96,7 @@ export function HospitalFilter() {
                     : "text-foreground-secondary-100"
                 }
               >
-                {DEFAULT_OPTIONS_LABELS[option]}
+                {t(translationKey)}
               </Text>
             </Button>
           );
@@ -125,7 +112,7 @@ export function HospitalFilter() {
           typography="subtitle1"
           className="text-foreground-secondary-100 text-[#fdfdfd]"
         >
-          필터
+          {t("Filter")}
         </Text>
       </Button>
     </HStack>

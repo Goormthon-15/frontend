@@ -13,6 +13,8 @@ import IconEarNoseThroat from "@/assets/svgs/icon-ears_nose_and_throat.svg";
 import IconOphthalmology from "@/assets/svgs/icon-opthalmology.svg";
 import IconChaplaincy from "@/assets/svgs/icon-chaplaincy.svg";
 import IconHematology from "@/assets/svgs/icon-hematology.svg";
+import { useTranslation } from "../../_components/provider/LocaleProvider";
+import { KeyOfTranslation } from "@/libs/i18n/utils/loadTranslation";
 
 const GRID_ITEMS = [
   {
@@ -40,7 +42,7 @@ const GRID_ITEMS = [
     icon: IconCriticalCare,
   },
   {
-    label: "Orthopaedics",
+    label: "Orthopedics",
     icon: IconOrthopaedics,
   },
   {
@@ -66,6 +68,8 @@ const GRID_ITEMS = [
 ];
 
 export function DashboardGrid() {
+  const { t } = useTranslation();
+
   return (
     <Grid.Root
       templateColumns={"repeat(3, minmax(120px, 1fr))"}
@@ -84,7 +88,7 @@ export function DashboardGrid() {
               render={<Button />}
             >
               <IconComponent className="size-12" />
-              <Text>{item.label}</Text>
+              <Text>{t(item.label as KeyOfTranslation)}</Text>
             </Box>
           </Grid.Item>
         );
